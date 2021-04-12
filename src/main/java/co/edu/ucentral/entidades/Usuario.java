@@ -2,110 +2,92 @@ package co.edu.ucentral.entidades;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 
-
 /**
- * The persistent class for the usuario database table.
+ * The persistent class for the usuarios database table.
  * 
  */
 @Entity
-@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
+@Table(name = "usuarios")
+@NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer idusuario;
-
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "numero_identificacion")
+	private Integer numeroIdentificacion;
+	@Column(name = "direccion",length = 100)
 	private String direccion;
+	@Column(name = "fecha_nacimiento")
+	private Timestamp fechaNacimiento;
+	@Column(name = "nombre",length = 60)
+	private String nombre;
+	@Column(name = "password",length = 60)
+	private String password;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "tipo_documento")
+	private TiposDocumento tipoDocumento;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_telefono")
+	private Telefono telefono;
 
-	private String email;
-
-	private String fechanacimiento;
-
-	private String nombreusuario;
-
-	//bi-directional many-to-one association to Factura
-	@OneToMany(mappedBy="usuario")
-	private List<Factura> facturas;
-
-	//bi-directional many-to-one association to Tipousuario
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="tipousuario")
-	private Tipousuario tipousuarioBean;
-
-	public Usuario() {
+	public Integer getNumeroIdentificacion() {
+		return numeroIdentificacion;
 	}
 
-	public Integer getIdusuario() {
-		return this.idusuario;
-	}
-
-	public void setIdusuario(Integer idusuario) {
-		this.idusuario = idusuario;
+	public void setNumeroIdentificacion(Integer numeroIdentificacion) {
+		this.numeroIdentificacion = numeroIdentificacion;
 	}
 
 	public String getDireccion() {
-		return this.direccion;
+		return direccion;
 	}
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
 
-	public String getEmail() {
-		return this.email;
+	public Timestamp getFechaNacimiento() {
+		return fechaNacimiento;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setFechaNacimiento(Timestamp fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public String getFechanacimiento() {
-		return this.fechanacimiento;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setFechanacimiento(String fechanacimiento) {
-		this.fechanacimiento = fechanacimiento;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public String getNombreusuario() {
-		return this.nombreusuario;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setNombreusuario(String nombreusuario) {
-		this.nombreusuario = nombreusuario;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public List<Factura> getFacturas() {
-		return this.facturas;
+	public TiposDocumento getTipoDocumento() {
+		return tipoDocumento;
 	}
 
-	public void setFacturas(List<Factura> facturas) {
-		this.facturas = facturas;
+	public void setTipoDocumento(TiposDocumento tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
 	}
 
-	public Factura addFactura(Factura factura) {
-		getFacturas().add(factura);
-		factura.setUsuario(this);
-
-		return factura;
+	public Telefono getTelefono() {
+		return telefono;
 	}
 
-	public Factura removeFactura(Factura factura) {
-		getFacturas().remove(factura);
-		factura.setUsuario(null);
-
-		return factura;
-	}
-
-	public Tipousuario getTipousuarioBean() {
-		return this.tipousuarioBean;
-	}
-
-	public void setTipousuarioBean(Tipousuario tipousuarioBean) {
-		this.tipousuarioBean = tipousuarioBean;
+	public void setTelefono(Telefono telefono) {
+		this.telefono = telefono;
 	}
 
 }
