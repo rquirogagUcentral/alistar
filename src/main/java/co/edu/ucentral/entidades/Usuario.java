@@ -33,6 +33,8 @@ public class Usuario implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_telefono")
 	private Telefono telefono;
+	@Column(name = "email",length = 60)
+	private String email;
 
 	public Integer getNumeroIdentificacion() {
 		return numeroIdentificacion;
@@ -89,5 +91,14 @@ public class Usuario implements Serializable {
 	public void setTelefono(Telefono telefono) {
 		this.telefono = telefono;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 
 }

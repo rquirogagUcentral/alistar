@@ -14,7 +14,7 @@ public class UsuarioDto implements Serializable{
 	private String nombre;
 	private Date fechaNacimiento;
 	private TelefonoDTo telefonos;
-	private int direccion;
+	private String direccion;
 	private String password;
 	
 	
@@ -49,10 +49,10 @@ public class UsuarioDto implements Serializable{
 	public void setTelefonos(TelefonoDTo telefonos) {
 		this.telefonos = telefonos;
 	}
-	public int getDireccion() {
+	public String getDireccion() {
 		return direccion;
 	}
-	public void setDireccion(int direccion) {
+	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
 	public String getPassword() {

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.ucentral.dto.ResponseDto;
 import co.edu.ucentral.dto.UsuarioDto;
+import co.edu.ucentral.dto.UsuarioSesionDto;
 import co.edu.ucentral.entidades.Usuario;
 import co.edu.ucentral.repository.IUsuariosRepository;
 
@@ -32,10 +33,13 @@ public class UsuarioCtr {
 	private ResponseEntity<?> getUsuario(){
 		
 		List<Usuario> listaUsuario=usuarioRepository.findAll();
+		if(listaUsuario.isEmpty()) {
+			return new ResponseEntity<>(listaUsuario,HttpStatus.NO_CONTENT);
+		}
 		return new ResponseEntity<>(listaUsuario,HttpStatus.OK);
 	}
 	@PostMapping("/getUsuario-password")
-	private ResponseEntity<?> getUsuarioAndPassword(@Valid @RequestBody UsuarioDto usuario ,BindingResult bd){
+	private ResponseEntity<?> getUsuarioAndPassword(@Valid @RequestBody UsuarioSesionDto usuario  ,BindingResult bd){
 		ResponseDto response=new ResponseDto();
 		if(bd.hasErrors()) {
 			String mensaje = bd.getFieldError().toString();
@@ -43,8 +47,10 @@ public class UsuarioCtr {
 			return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
 		}
 		
-		Usuario usuarios = usuarioRepository.findByNumeroIdentificacionAndPassword(usuario.getNumeroIdentificacion(), usuario.getPassword());
-		
+		Usuario usuarios = usuarioRepository.findByNumeroIdentificacionAndPassword(usuario.getUsuario(), usuario.getPassword());
+		if(usuarios==null) {
+			return new ResponseEntity<>(usuarios,HttpStatus.NOT_FOUND);
+		}
 		return new ResponseEntity<>(usuarios,HttpStatus.OK);
 	}
 	
