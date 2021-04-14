@@ -21,7 +21,7 @@ import co.edu.ucentral.entidades.Usuario;
 import co.edu.ucentral.repository.IUsuariosRepository;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(value = "/api")
 public class UsuarioCtr {
 
 	
@@ -29,7 +29,7 @@ public class UsuarioCtr {
 	private IUsuariosRepository usuarioRepository;
 	
 	
-	@GetMapping("/usuario")
+	@GetMapping(value = "/usuario")
 	private ResponseEntity<?> getUsuario(){
 		
 		List<Usuario> listaUsuario=usuarioRepository.findAll();
@@ -38,7 +38,7 @@ public class UsuarioCtr {
 		}
 		return new ResponseEntity<>(listaUsuario,HttpStatus.OK);
 	}
-	@PostMapping("/getUsuario-password")
+	@PostMapping(value = "/getUsuario-password")
 	private ResponseEntity<?> getUsuarioAndPassword(@Valid @RequestBody UsuarioSesionDto usuario  ,BindingResult bd){
 		ResponseDto response=new ResponseDto();
 		if(bd.hasErrors()) {
@@ -54,7 +54,7 @@ public class UsuarioCtr {
 		return new ResponseEntity<>(usuarios,HttpStatus.OK);
 	}
 	
-	@PostMapping("/save-usuario")
+	@PostMapping(value = "/save-usuario")
 	private ResponseEntity<ResponseDto> saveUsuario(@Valid @RequestBody UsuarioDto usuario ,BindingResult bd){
 		ResponseDto response=new ResponseDto();
 		if(bd.hasErrors()) {
@@ -67,7 +67,7 @@ public class UsuarioCtr {
 		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 	
-	@GetMapping("/health")
+	@GetMapping(value = "/health")
 	public String healthCheck() {
 		return "HEALTHY ACTIVIDAD OK";
 	}
