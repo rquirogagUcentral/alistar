@@ -20,7 +20,7 @@ public class UsuarioSesionDto {
 	private String password;
 
 	public UsuarioSesionDto() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Integer getUsuario() {

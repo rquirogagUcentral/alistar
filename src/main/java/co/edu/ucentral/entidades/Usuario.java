@@ -38,13 +38,29 @@ public class Usuario implements Serializable {
 	@Column(name = "password",length = 60)
 	private String password;
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "tipo_documento")
+	@JoinColumn
 	private TiposDocumento tipoDocumento;
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_telefono")
+	@JoinColumn
 	private Telefono telefono;
 	@Column(name = "email",length = 60)
 	private String email;
+
+	public Usuario() {
+	}
+	
+	public Usuario(Integer numeroIdentificacion, String direccion, Timestamp fechaNacimiento, String nombre,
+			String password, TiposDocumento tipoDocumento, Telefono telefono, String email) {
+		super();
+		this.numeroIdentificacion = numeroIdentificacion;
+		this.direccion = direccion;
+		this.fechaNacimiento = fechaNacimiento;
+		this.nombre = nombre;
+		this.password = password;
+		this.tipoDocumento = tipoDocumento;
+		this.telefono = telefono;
+		this.email = email;
+	}
 
 	public Integer getNumeroIdentificacion() {
 		return numeroIdentificacion;

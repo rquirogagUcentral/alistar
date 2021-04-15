@@ -56,14 +56,21 @@ public class UsuarioCtr {
 	
 	@PostMapping(value = "/save-usuario")
 	private ResponseEntity<ResponseDto> saveUsuario(@Valid @RequestBody UsuarioDTO usuario ,BindingResult bd){
+		
 		ResponseDto response=new ResponseDto();
 		if(bd.hasErrors()) {
 			String mensaje = bd.getFieldError().toString();
 			response.setMensaje(mensaje);
 			return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
 		}
-		//Usuario usuarios = usuario;
-		//usuarioRepository.save(usuarios);
+		try {
+			//Usuario usuarios = usuario;
+			//usuarioRepository.save(usuarios);
+				
+		} catch (Exception e) {
+			response.setMensaje("Error guardando el usuario " + e.getMessage());
+			return new ResponseEntity<>(response,HttpStatus.SERVICE_UNAVAILABLE);
+		}
 		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 	
