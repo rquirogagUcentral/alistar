@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.ucentral.dto.ResponseDto;
-import co.edu.ucentral.dto.UsuarioDto;
+import co.edu.ucentral.dto.UsuarioDTO;
 import co.edu.ucentral.dto.UsuarioSesionDto;
 import co.edu.ucentral.entidades.Usuario;
 import co.edu.ucentral.repository.IUsuariosRepository;
@@ -55,7 +55,7 @@ public class UsuarioCtr {
 	}
 	
 	@PostMapping(value = "/save-usuario")
-	private ResponseEntity<ResponseDto> saveUsuario(@Valid @RequestBody UsuarioDto usuario ,BindingResult bd){
+	private ResponseEntity<ResponseDto> saveUsuario(@Valid @RequestBody UsuarioDTO usuario ,BindingResult bd){
 		ResponseDto response=new ResponseDto();
 		if(bd.hasErrors()) {
 			String mensaje = bd.getFieldError().toString();

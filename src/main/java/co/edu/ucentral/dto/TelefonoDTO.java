@@ -1,6 +1,6 @@
 package co.edu.ucentral.dto;
 
-public class TelefonoDTo {
+public class TelefonoDTO {
 	
 	private int idTelefono;
 	private String telefono;

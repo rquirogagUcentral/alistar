@@ -3,7 +3,7 @@ package co.edu.ucentral.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-public class UsuarioDto implements Serializable{
+public class UsuarioDTO implements Serializable{
 
 	/**
 	 * 
@@ -13,7 +13,7 @@ public class UsuarioDto implements Serializable{
 	private TipoDocumentoDto tipoDocumento;
 	private String nombre;
 	private Date fechaNacimiento;
-	private TelefonoDTo telefonos;
+	private TelefonoDTO telefonos;
 	private String direccion;
 	private String password;
 	
@@ -43,10 +43,10 @@ public class UsuarioDto implements Serializable{
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
-	public TelefonoDTo getTelefonos() {
+	public TelefonoDTO getTelefonos() {
 		return telefonos;
 	}
-	public void setTelefonos(TelefonoDTo telefonos) {
+	public void setTelefonos(TelefonoDTO telefonos) {
 		this.telefonos = telefonos;
 	}
 	public String getDireccion() {
