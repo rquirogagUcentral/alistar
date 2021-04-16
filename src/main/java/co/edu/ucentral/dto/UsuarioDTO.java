@@ -1,35 +1,38 @@
 package co.edu.ucentral.dto;
 
-import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import co.edu.ucentral.entidades.Telefono;
+import co.edu.ucentral.entidades.TiposDocumento;
 public class UsuarioDTO {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2279749987754275643L;
+	
 	@NotNull(message = "El numero no puede ir vacio")
 	private Integer numeroIdentificacion;
 	@NotNull(message = "El numero no puede ir vacio")
-	private TipoDocumentoDto tipoDocumento;
+	private TiposDocumento tipoDocumento;
 	@NotNull(message = "El numero no puede ir vacio")
 	private String nombre;
 	@NotNull(message = "El numero no puede ir vacio")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date fechaNacimiento;
+	private Timestamp fechaNacimiento;
 	@NotNull(message = "El numero no puede ir vacio")
-	private TelefonoDTO telefonos;
+	private Telefono telefono;
 	@NotNull(message = "El numero no puede ir vacio")
 	private String direccion;
 	@NotNull(message = "El numero no puede ir vacio")
 	private String password;
+	@NotEmpty(message = "email")
+	private String email;
 	
-	
+	public UsuarioDTO() {
+		
+	}
 	
 	public Integer getNumeroIdentificacion() {
 		return numeroIdentificacion;
@@ -37,10 +40,10 @@ public class UsuarioDTO {
 	public void setNumeroIdentificacion(Integer numeroIdentificacion) {
 		this.numeroIdentificacion = numeroIdentificacion;
 	}
-	public TipoDocumentoDto getTipoDocumento() {
+	public TiposDocumento getTipoDocumento() {
 		return tipoDocumento;
 	}
-	public void setTipoDocumento(TipoDocumentoDto tipoDocumento) {
+	public void setTipoDocumento(TiposDocumento tipoDocumento) {
 		this.tipoDocumento = tipoDocumento;
 	}
 	public String getNombre() {
@@ -49,17 +52,17 @@ public class UsuarioDTO {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public Date getFechaNacimiento() {
+	public Timestamp getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(Timestamp fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
-	public TelefonoDTO getTelefonos() {
-		return telefonos;
+	public Telefono getTelefonos() {
+		return telefono;
 	}
-	public void setTelefonos(TelefonoDTO telefonos) {
-		this.telefonos = telefonos;
+	public void setTelefonos(Telefono telefonos) {
+		this.telefono = telefonos;
 	}
 	public String getDireccion() {
 		return direccion;
@@ -72,6 +75,22 @@ public class UsuarioDTO {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Telefono getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(Telefono telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	

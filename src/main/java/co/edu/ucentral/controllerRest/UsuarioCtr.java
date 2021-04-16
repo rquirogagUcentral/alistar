@@ -33,64 +33,66 @@ public class UsuarioCtr {
 	private static Logger logger = LoggerFactory.getLogger(UsuarioCtr.class);
 	@Autowired
 	private IUsuariosRepository usuarioRepository;
-	
-	
+
 	@GetMapping(value = "/usuario")
-	private ResponseEntity<?> getUsuario()throws SQLException{
-		
-		List<Usuario> listaUsuario=usuarioRepository.findAll();
-		if(listaUsuario.isEmpty()) {
-			return new ResponseEntity<>(listaUsuario,HttpStatus.NO_CONTENT);
+	private ResponseEntity<?> getUsuario() throws SQLException {
+
+		List<Usuario> listaUsuario = usuarioRepository.findAll();
+		if (listaUsuario.isEmpty()) {
+			return new ResponseEntity<>(listaUsuario, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<>(listaUsuario,HttpStatus.OK);
+		return new ResponseEntity<>(listaUsuario, HttpStatus.OK);
 	}
+
 	@PostMapping(value = "/getUsuario-password")
-	private ResponseEntity<?> getUsuarioAndPassword(@Valid @RequestBody UsuarioSesionDto usuario  ,BindingResult bd){
-		ResponseDto response=new ResponseDto();
-		if(bd.hasErrors()) {
+	private ResponseEntity<?> getUsuarioAndPassword(@Valid @RequestBody UsuarioSesionDto usuario, BindingResult bd) {
+		ResponseDto response = new ResponseDto();
+		if (bd.hasErrors()) {
 			String mensaje = bd.getFieldError().toString();
 			response.setMensaje(mensaje);
-			return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
-		Usuario usuarios = usuarioRepository.findByNumeroIdentificacionAndPassword(usuario.getUsuario(), usuario.getPassword());
-		if(usuarios==null) {
-			return new ResponseEntity<>(usuarios,HttpStatus.NOT_FOUND);
+		Usuario usuarios = usuarioRepository.findByNumeroIdentificacionAndPassword(usuario.getUsuario(),
+				usuario.getPassword());
+		if (usuarios == null) {
+			return new ResponseEntity<>(usuarios, HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(usuarios,HttpStatus.OK);
+		return new ResponseEntity<>(usuarios, HttpStatus.OK);
 	}
-	
+
 	@PostMapping(value = "/save-usuario")
-	private ResponseEntity<ResponseDto> saveUsuario(@Valid @RequestBody UsuarioDTO usuario ,BindingResult bd){
-		
-		ResponseDto response=new ResponseDto();
-		if(bd.hasErrors()) {
+	private ResponseEntity<ResponseDto> saveUsuario(@Valid @RequestBody UsuarioDTO usuario, BindingResult bd) {
+
+		ResponseDto response = new ResponseDto();
+		if (bd.hasErrors()) {
 			String mensaje = bd.getFieldError().toString();
 			response.setMensaje(mensaje);
-			return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 		try {
-			logger.info("Usuarios {},",usuario.toString());
-			Usuario u=new Usuario();
-		BeanUtils.copyProperties( usuario,u);
-		usuarioRepository.save(u);
-				
+			logger.info("Usuarios {},", usuario.toString());
+			Usuario u = new Usuario();
+			BeanUtils.copyProperties(usuario, u);
+			usuarioRepository.save(u);
+
 		} catch (Exception e) {
 			response.setMensaje("Error guardando el usuario " + e.getMessage());
-			return new ResponseEntity<>(response,HttpStatus.SERVICE_UNAVAILABLE);
+			return new ResponseEntity<>(response, HttpStatus.SERVICE_UNAVAILABLE);
 		}
-		return new ResponseEntity<>(response,HttpStatus.OK);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+
 	@DeleteMapping(value = "/remove-usuario/{id}")
-	private ResponseEntity<ResponseDto> deleteUsuario(@RequestParam(required = true, name = "id") int id ){
-		ResponseDto response=new ResponseDto();
+	private ResponseEntity<ResponseDto> deleteUsuario(@RequestParam(required = true, name = "id") int id) {
+		ResponseDto response = new ResponseDto();
 		usuarioRepository.deleteById(id);
-		
-		return new ResponseEntity<>(response,HttpStatus.OK);
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
-	
+
 	@GetMapping(value = "/health")
 	public String healthCheck() {
 		return "HEALTHY ACTIVIDAD OK";
 	}
-	
+
 }

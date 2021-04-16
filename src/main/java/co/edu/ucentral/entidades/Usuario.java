@@ -26,7 +26,6 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "numero_identificacion")
 	private Integer numeroIdentificacion;
 	@Column(name = "direccion",length = 100)
