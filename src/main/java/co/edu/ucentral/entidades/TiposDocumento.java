@@ -17,9 +17,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tipos_documentos")
 @NamedQuery(name = "TiposDocumento.findAll", query = "SELECT t FROM TiposDocumento t")
-public class TiposDocumento implements Serializable {
-	private static final long serialVersionUID = 1L;
-
+public class TiposDocumento {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "tipo_documento")

@@ -1,9 +1,11 @@
 package co.edu.ucentral.controllerRest;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +32,7 @@ public class UsuarioCtr {
 	
 	
 	@GetMapping(value = "/usuario")
-	private ResponseEntity<?> getUsuario(){
+	private ResponseEntity<?> getUsuario()throws SQLException{
 		
 		List<Usuario> listaUsuario=usuarioRepository.findAll();
 		if(listaUsuario.isEmpty()) {
@@ -46,7 +48,6 @@ public class UsuarioCtr {
 			response.setMensaje(mensaje);
 			return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
 		}
-		
 		Usuario usuarios = usuarioRepository.findByNumeroIdentificacionAndPassword(usuario.getUsuario(), usuario.getPassword());
 		if(usuarios==null) {
 			return new ResponseEntity<>(usuarios,HttpStatus.NOT_FOUND);
@@ -64,8 +65,9 @@ public class UsuarioCtr {
 			return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
 		}
 		try {
-			//Usuario usuarios = usuario;
-			//usuarioRepository.save(usuarios);
+			Usuario u=new Usuario();
+		BeanUtils.copyProperties(usuario, usuario);
+		usuarioRepository.save(u);
 				
 		} catch (Exception e) {
 			response.setMensaje("Error guardando el usuario " + e.getMessage());

@@ -37,11 +37,11 @@ public class Usuario implements Serializable {
 	private String nombre;
 	@Column(name = "password",length = 60)
 	private String password;
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn
+	@ManyToOne(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+	@JoinColumn(name = "tipoDocumento",referencedColumnName = "tipo_documento")
 	private TiposDocumento tipoDocumento;
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn
+	@JoinColumn(name = "telefono", referencedColumnName = "id_Telefono" )
 	private Telefono telefono;
 	@Column(name = "email",length = 60)
 	private String email;
