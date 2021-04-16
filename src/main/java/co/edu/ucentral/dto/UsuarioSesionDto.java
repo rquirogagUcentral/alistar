@@ -10,11 +10,11 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class UsuarioSesionDto {
 
-	@NotNull
+	@NotNull(message = "El campo no puede ir vacio ")
 	@Size(min = 1, max = 30)
 	private Integer usuario;
 	@NotNull
-	@NotBlank
+	@NotBlank(message = "password no debe ir en blaco")
 	@NotEmpty
 	@Size(min = 1, max = 30)
 	private String password;

@@ -10,11 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import co.edu.ucentral.dto.ResponseDto;
 import co.edu.ucentral.dto.UsuarioDTO;
@@ -26,7 +30,7 @@ import co.edu.ucentral.repository.IUsuariosRepository;
 @RequestMapping(value = "/api")
 public class UsuarioCtr {
 
-	
+	private static Logger logger = LoggerFactory.getLogger(UsuarioCtr.class);
 	@Autowired
 	private IUsuariosRepository usuarioRepository;
 	
@@ -65,14 +69,22 @@ public class UsuarioCtr {
 			return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
 		}
 		try {
+			logger.info("Usuarios {},",usuario.toString());
 			Usuario u=new Usuario();
-		BeanUtils.copyProperties(usuario, usuario);
+		BeanUtils.copyProperties( usuario,u);
 		usuarioRepository.save(u);
 				
 		} catch (Exception e) {
 			response.setMensaje("Error guardando el usuario " + e.getMessage());
 			return new ResponseEntity<>(response,HttpStatus.SERVICE_UNAVAILABLE);
 		}
+		return new ResponseEntity<>(response,HttpStatus.OK);
+	}
+	@DeleteMapping(value = "/remove-usuario/{id}")
+	private ResponseEntity<ResponseDto> deleteUsuario(@RequestParam(required = true, name = "id") int id ){
+		ResponseDto response=new ResponseDto();
+		usuarioRepository.deleteById(id);
+		
 		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 	
