@@ -22,10 +22,10 @@ public class TiposDocumento {
 	@Column(name = "tipo_documento")
 	private Integer tipoDocumento;
 
-	@Column(name = "descripcion_corta")
+	@Column(name = "descripcion_corta",length = 6)
 	private String descripcionCorta;
 
-	@Column(name = "descripcion_larga")
+	@Column(name = "descripcion_larga",length = 40)
 	private String descripcionLarga;
 
 	public TiposDocumento() {

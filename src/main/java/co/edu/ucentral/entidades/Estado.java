@@ -20,7 +20,7 @@ public class Estado implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_estado")
 	private Integer idEstado;
-	@Column(name = "estado")
+	@Column(name = "estado",length = 30)
 	private String estado;
 
 	

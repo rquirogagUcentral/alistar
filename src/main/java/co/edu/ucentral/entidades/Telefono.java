@@ -25,7 +25,7 @@ public class Telefono implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_telefono")
 	private Integer idTelefono;
-
+	@Column(length = 30)
 	private String telefono;
 
 	
