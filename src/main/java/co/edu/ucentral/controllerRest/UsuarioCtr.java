@@ -27,14 +27,14 @@ import co.edu.ucentral.entidades.Usuario;
 import co.edu.ucentral.repository.IUsuariosRepository;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping( path = "/Usuarios")
 public class UsuarioCtr {
 
 	private static Logger logger = LoggerFactory.getLogger(UsuarioCtr.class);
 	@Autowired
 	private IUsuariosRepository usuarioRepository;
 
-	@GetMapping(value = "/usuario")
+	@GetMapping()
 	private ResponseEntity<?> getUsuario() throws SQLException {
 
 		List<Usuario> listaUsuario = usuarioRepository.findAll();
