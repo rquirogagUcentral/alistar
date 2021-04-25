@@ -13,6 +13,15 @@ public class CategoriaDTO {
 	public CategoriaDTO() {
 		
 	}
+	
+	
+	public CategoriaDTO(Integer idCategoria,String nombreCategoria) {
+		super();
+		this.idCategoria = idCategoria;
+		this.nombreCategoria = nombreCategoria;
+	}
+
+
 	public Integer getIdCategoria() {
 		return idCategoria;
 	}

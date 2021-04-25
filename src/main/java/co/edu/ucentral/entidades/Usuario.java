@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -42,7 +43,8 @@ public class Usuario implements Serializable {
 	private Telefono telefono;
 	@Column(name = "email",length = 60)
 	private String email;
-
+	
+	
 	public Usuario() {
 	}
 	

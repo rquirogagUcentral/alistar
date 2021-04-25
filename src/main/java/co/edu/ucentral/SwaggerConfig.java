@@ -18,7 +18,7 @@ public class SwaggerConfig {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
 				.paths(PathSelectors.any())
-				.apis(RequestHandlerSelectors.any())
+				.apis(RequestHandlerSelectors.basePackage("co.edu.ucentral.controllerRest"))
 				.build();
 
 	}

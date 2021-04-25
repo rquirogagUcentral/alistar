@@ -1,6 +1,6 @@
 package co.edu.ucentral.dto;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,7 +20,7 @@ public class UsuarioDTO {
 	private String nombre;
 	@NotNull(message = "El numero no puede ir vacio")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Timestamp fechaNacimiento;
+	private Date fechaNacimiento;
 	@NotNull(message = "El numero no puede ir vacio")
 	private Telefono telefono;
 	@NotNull(message = "El numero no puede ir vacio")
@@ -52,10 +52,10 @@ public class UsuarioDTO {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public Timestamp getFechaNacimiento() {
+	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-	public void setFechaNacimiento(Timestamp fechaNacimiento) {
+	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	public Telefono getTelefonos() {

@@ -20,25 +20,18 @@ public class Permiso implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public Integer getIdPermiso() {
-		return idPermiso;
-	}
-	public void setIdPermiso(Integer idPermiso) {
-		this.idPermiso = idPermiso;
-	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name ="id_permiso" )
 	private Integer idPermiso;
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "usuario", referencedColumnName = "numero_identificacion")
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JoinColumn(name = "usuario", referencedColumnName = "numero_identificacion" )
 	private Usuario usuario;
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "modulo", referencedColumnName = "id_modulo")
-	private Modulo modulo;
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "roles", referencedColumnName = "id_rol")
-	private Rol roles;
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JoinColumn(name = "tipoRol", referencedColumnName = "id_rol" )
+	private Rol tipoRol;
+	
 	
 	public Permiso() {
 		// TODO Auto-generated constructor stub
@@ -49,18 +42,12 @@ public class Permiso implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	public Modulo getModulo() {
-		return modulo;
+	public Rol getTipoRol() {
+		return tipoRol;
 	}
-	public void setModulo(Modulo modulo) {
-		this.modulo = modulo;
+	public void setTipoRol(Rol tipoRol) {
+		this.tipoRol = tipoRol;
 	}
-	public Rol getRoles() {
-		return roles;
-	}
-	public void setRoles(Rol roles) {
-		this.roles = roles;
-	}
-	
+
 	
 }
