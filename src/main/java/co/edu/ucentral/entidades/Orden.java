@@ -1,6 +1,7 @@
 package co.edu.ucentral.entidades;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Table(name = "Ordenes")
@@ -34,6 +37,9 @@ public class Orden implements Serializable{
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "estado", referencedColumnName = "id_estado")
 	private Estado estado;
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JoinColumn()
+	private List<Evento> evento;
 	@Column(name = "valor_total")
 	private double valorTotal;
 	
@@ -90,6 +96,23 @@ public class Orden implements Serializable{
 
 	public void setValorTotal(double valorTotal) {
 		this.valorTotal = valorTotal;
+	}
+
+
+	public List<Evento> getEvento() {
+		return evento;
+	}
+
+
+	public void setEvento(List<Evento> evento) {
+		this.evento = evento;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Orden [idOrden=" + idOrden + ", servicio=" + servicio + ", horario=" + horario + ", estado=" + estado
+				+ ", valorTotal=" + valorTotal + "]";
 	}
 	
 	

@@ -1,6 +1,7 @@
 package co.edu.ucentral.controllerRest;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -73,8 +74,10 @@ public class UsuarioCtr {
 			logger.info("Usuarios {},", usuario.toString());
 			Usuario u = new Usuario();
 			BeanUtils.copyProperties(usuario, u);
+			Timestamp ts=new Timestamp(usuario.getFechaNacimiento().getTime());  
+			u.setFechaNacimiento(ts);
 			usuarioRepository.save(u);
-
+			response.setMensaje("OK");
 		} catch (Exception e) {
 			response.setMensaje("Error guardando el usuario " + e.getMessage());
 			return new ResponseEntity<>(response, HttpStatus.SERVICE_UNAVAILABLE);
@@ -90,9 +93,5 @@ public class UsuarioCtr {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/health")
-	public String healthCheck() {
-		return "HEALTHY ACTIVIDAD OK";
-	}
 
 }

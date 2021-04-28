@@ -4,9 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -31,9 +34,25 @@ public class Categoria implements Serializable {
 
 	@Column(name = "nombre_categoria",length = 50)
 	private String nombreCategoria;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "servicio_id")
+	private Servicio servicio;
 
 	public Categoria() {
 		
+	}
+
+	public Categoria(Integer idCategoria, String nombreCategoria) {
+		super();
+		this.idCategoria = idCategoria;
+		this.nombreCategoria = nombreCategoria;
+	}
+
+	public Categoria(Integer idCategoria, String nombreCategoria, Servicio servicio) {
+		super();
+		this.idCategoria = idCategoria;
+		this.nombreCategoria = nombreCategoria;
+		this.servicio = servicio;
 	}
 
 	public Integer getIdCategoria() {
@@ -50,6 +69,14 @@ public class Categoria implements Serializable {
 
 	public void setNombreCategoria(String nombreCategoria) {
 		this.nombreCategoria = nombreCategoria;
+	}
+
+	public Servicio getServicio() {
+		return servicio;
+	}
+
+	public void setServicio(Servicio servicio) {
+		this.servicio = servicio;
 	}
 
 }

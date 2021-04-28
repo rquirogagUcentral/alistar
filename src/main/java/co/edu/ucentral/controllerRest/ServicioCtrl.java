@@ -25,49 +25,68 @@ import co.edu.ucentral.repository.IServiciosRepository;
 import co.edu.ucentral.services.ServicesServicio;
 
 @RestController
-@RequestMapping(path  = "/Servicio")
+@RequestMapping(path = "/Servicio")
 public class ServicioCtrl {
 
 	private static Logger logger = LoggerFactory.getLogger(ServicioCtrl.class);
 	@Autowired
 	private ServicesServicio serviceServicio;
-	
-	
+
 	@GetMapping()
-	private  ResponseEntity<?> getServices(){
+	private ResponseEntity<?> getServices() {
 		logger.info("Se obtiene la cantidad de servicios");
-		List<ServicioDTO> servicio =serviceServicio.AllServicio();
-		if(servicio.isEmpty())
-			return new  ResponseEntity<>(HttpStatus.NO_CONTENT);
+		List<ServicioDTO> servicio = serviceServicio.AllServicio();
+		if (servicio.isEmpty())
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		else
-			return new  ResponseEntity<>(servicio, HttpStatus.OK);
+			return new ResponseEntity<>(servicio, HttpStatus.OK);
 	}
-	@PostMapping(path = "/save-Servicio")
-	public  ResponseEntity<?> saveServicio(@Valid @RequestBody ServicioDTO servicio,BindingResult bd){
+
+	@GetMapping(params = "id")
+	public ResponseEntity<?> buscarById(@RequestParam(required = true, name = "id") int id) {
 		ResponseDto response = new ResponseDto();
-		
+		try {
+
+			ServicioDTO servicio = serviceServicio.getByIdServicio(null, id);
+			if (servicio == null)
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			else
+				return new ResponseEntity<>(servicio, HttpStatus.OK);
+		} catch (Exception e) {
+			response.setMensaje("Error buscando el servicio");
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PostMapping(path = "/save-Servicio")
+	public ResponseEntity<?> saveServicio(@Valid @RequestBody ServicioDTO servicio, BindingResult bd) {
+		ResponseDto response = new ResponseDto();
+		logger.info("@@@ servicio => {}",servicio.toString());
 		try {
 			if (bd.hasErrors()) {
 				String mensaje = bd.getFieldError().toString();
 				response.setMensaje(mensaje);
 				return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 			}
-			
+			serviceServicio.getServio(servicio);
+			response.setMensaje("OK");
 		} catch (Exception e) {
+			logger.error("Error : {}" , e.getMessage());
 			response.setMensaje("Error en el guardado de Servicio");
 			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
-	@PutMapping(path = "/{id}")
-	public  ResponseEntity<?> modificar(@RequestParam(required = true, name = "id") int id,@Valid @RequestBody ServicioDTO servicio,BindingResult bd){
-		
-		
+
+	@PutMapping(path = "/modify")
+	public ResponseEntity<?> modificar(@Valid @RequestBody ServicioDTO servicio, BindingResult bd) {
+
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+
 	@DeleteMapping(path = "/delete-Servicio/{id}")
-	public  ResponseEntity<?> eliminarServicio(@RequestParam(required = true, name = "id") int id){
+	public ResponseEntity<?> eliminarServicio(@RequestParam(required = true, name = "id") int id) {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 }
