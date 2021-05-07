@@ -10,5 +10,6 @@ public interface ServicesServicio {
 	ServicioDTO getServio(ServicioDTO servicio);
 	ServicioDTO getByIdServicio(ServicioDTO servicio, int id);
 	ServicioDTO deleteSericio(int id);
+	List<ServicioDTO> getByIdUsuario(int id);
 
 }

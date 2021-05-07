@@ -2,6 +2,7 @@ package co.edu.ucentral.entidades;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,8 +28,8 @@ public class Direccion implements Serializable {
 	private Integer idDireccion;
 	@Column(name = "direccion", length = 60)
 	private String direccion;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "servicio_id")
+	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinColumn(name = "servicio_id",referencedColumnName = "id_servicio")
 	private Servicio servicio;
 
 	public Direccion() {

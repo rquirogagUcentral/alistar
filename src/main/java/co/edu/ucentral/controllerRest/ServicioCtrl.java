@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.ucentral.dto.ResponseDto;
 import co.edu.ucentral.dto.ServicioDTO;
+import co.edu.ucentral.entidades.Servicio;
 import co.edu.ucentral.repository.IServiciosRepository;
 import co.edu.ucentral.services.ServicesServicio;
 
@@ -32,6 +33,9 @@ public class ServicioCtrl {
 	@Autowired
 	private ServicesServicio serviceServicio;
 
+	@Autowired
+	private IServiciosRepository serviceRepository;
+	
 	@GetMapping()
 	private ResponseEntity<?> getServices() {
 		logger.info("Se obtiene la cantidad de servicios");
@@ -84,9 +88,19 @@ public class ServicioCtrl {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@DeleteMapping(path = "/delete-Servicio/{id}")
+	@DeleteMapping(path = "/delete-Servicio", params = "id")
 	public ResponseEntity<?> eliminarServicio(@RequestParam(required = true, name = "id") int id) {
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	@GetMapping(path = "get-usuario-service", params =  "usuarioId")
+	public  ResponseEntity<?> getUsuariSerbice(@RequestParam(required = true , name = "usuarioId") int usuarioId){
+		List<ServicioDTO> listadoServicio=serviceServicio.getByIdUsuario(usuarioId);
+		ResponseDto response = new ResponseDto();
+		if(listadoServicio.isEmpty()) {
+			response.setMensaje("NO se encuentra el usuario");
+			return new ResponseEntity<>(response,HttpStatus.OK);
+		}else
+			return new ResponseEntity<>(listadoServicio,HttpStatus.OK);
 	}
 
 }

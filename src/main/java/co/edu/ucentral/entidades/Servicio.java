@@ -31,10 +31,10 @@ public class Servicio implements Serializable {
 	@Column(name = "nombre_servicio", length = 60)
 	private String nombreServicio;
 	@Column(name = "categoria")
-	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "idCategoria")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "idCategoria")
 	private List<Categoria> categoria;
 	@Column(name = "direccion")
-	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "idDireccion")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "idDireccion")
 	private List<Direccion> direccion;
 	private Integer proveedor;
 

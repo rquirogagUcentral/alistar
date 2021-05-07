@@ -3,6 +3,7 @@ package co.edu.ucentral.services.implement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import co.edu.ucentral.dto.CategoriaDTO;
 import co.edu.ucentral.dto.DireccionDTO;
+import co.edu.ucentral.dto.OrdenDTO;
 import co.edu.ucentral.dto.ServicioDTO;
 import co.edu.ucentral.dto.UsuarioDTO;
 import co.edu.ucentral.entidades.Categoria;
@@ -138,6 +140,28 @@ public class ServicioServicesImp implements ServicesServicio {
 	public ServicioDTO deleteSericio(int id) {
 		serviceRepository.deleteById(id);
 		return null;
+	}
+
+	@Override
+	public List<ServicioDTO> getByIdUsuario(int id) {
+		List<ServicioDTO> listadoDto= new ArrayList<ServicioDTO>();
+		
+		List<Servicio> listadoServicio=serviceRepository.findByProveedor(id);
+		listadoServicio.stream().forEach(map->{
+			List<Categoria> cate= categoriaRepository.findByServicio(map);
+			List<Direccion> direccions =direccionRepository.findByServicio(map);
+			map.setCategoria(cate);
+			map.setDireccion(direccions);
+			UsuarioDTO proveedor = new UsuarioDTO();
+			Usuario usuario = usuarioReposiory.findByNumeroIdentificacion(map.getProveedor());
+			BeanUtils.copyProperties(usuario, proveedor);
+			ModelMapper modelMapper = new ModelMapper();
+			ServicioDTO dto=modelMapper.map(map, ServicioDTO.class);
+			dto.setProveedor(proveedor);
+			listadoDto.add(dto);
+		});
+		
+		return listadoDto ;
 	}
 
 }

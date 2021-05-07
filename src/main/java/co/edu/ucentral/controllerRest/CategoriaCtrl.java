@@ -61,7 +61,7 @@ public class CategoriaCtrl {
 		
 		return new ResponseEntity<>(categoria, HttpStatus.CREATED);
 	}
-	@DeleteMapping(path = "/delete-categoria/{id}")
+	@DeleteMapping(path = "/delete-categoria" ,params = "id")
 	private ResponseEntity<?> deleteCategoria(@RequestParam(required = true,value = "id") int id){
 		 categoriaRepository.deleteById(id);
 		 boolean deleteCategoria =categoriaRepository.existsById(id);
