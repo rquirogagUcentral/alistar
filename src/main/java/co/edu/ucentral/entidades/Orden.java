@@ -42,6 +42,8 @@ public class Orden implements Serializable{
 	private List<Evento> evento;
 	@Column(name = "valor_total")
 	private double valorTotal;
+	@Column(name = "cantidad")
+	private int cantidad;
 	
 	
 	public Orden() {
@@ -113,6 +115,16 @@ public class Orden implements Serializable{
 	public String toString() {
 		return "Orden [idOrden=" + idOrden + ", servicio=" + servicio + ", horario=" + horario + ", estado=" + estado
 				+ ", valorTotal=" + valorTotal + "]";
+	}
+
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
 	}
 	
 	

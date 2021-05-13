@@ -28,7 +28,7 @@ import co.edu.ucentral.entidades.Usuario;
 import co.edu.ucentral.repository.IUsuariosRepository;
 
 @RestController
-@RequestMapping( path = "/Usuarios")
+@RequestMapping(path = "/Usuarios")
 public class UsuarioCtr {
 
 	private static Logger logger = LoggerFactory.getLogger(UsuarioCtr.class);
@@ -48,17 +48,24 @@ public class UsuarioCtr {
 	@PostMapping(value = "/getUsuario-password")
 	private ResponseEntity<?> getUsuarioAndPassword(@Valid @RequestBody UsuarioSesionDto usuario, BindingResult bd) {
 		ResponseDto response = new ResponseDto();
-		if (bd.hasErrors()) {
-			String mensaje = bd.getFieldError().toString();
-			response.setMensaje(mensaje);
-			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		try {
+			if (bd.hasErrors()) {
+				String mensaje = bd.getFieldError().toString();
+				response.setMensaje(mensaje);
+				return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+			}
+			Usuario usuarios = usuarioRepository.findByNumeroIdentificacionAndPassword(usuario.getUsuario(),
+					usuario.getPassword());
+			if (usuarios == null) {
+				response.setMensaje("Usuario no encontrado");
+				return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+			}
+			return new ResponseEntity<>(usuarios, HttpStatus.OK);
+		} catch (Exception e) {
+			response.setMensaje("el usuario no existe");
+			return new ResponseEntity<>(response, HttpStatus.OK);
 		}
-		Usuario usuarios = usuarioRepository.findByNumeroIdentificacionAndPassword(usuario.getUsuario(),
-				usuario.getPassword());
-		if (usuarios == null) {
-			return new ResponseEntity<>(usuarios, HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<>(usuarios, HttpStatus.OK);
+
 	}
 
 	@PostMapping(value = "/save-usuario")
@@ -74,7 +81,7 @@ public class UsuarioCtr {
 			logger.info("Usuarios {},", usuario.toString());
 			Usuario u = new Usuario();
 			BeanUtils.copyProperties(usuario, u);
-			Timestamp ts=new Timestamp(usuario.getFechaNacimiento().getTime());  
+			Timestamp ts = new Timestamp(usuario.getFechaNacimiento().getTime());
 			u.setFechaNacimiento(ts);
 			usuarioRepository.save(u);
 			response.setMensaje("OK");
@@ -92,6 +99,5 @@ public class UsuarioCtr {
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
-
 
 }

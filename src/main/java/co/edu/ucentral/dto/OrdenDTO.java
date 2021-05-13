@@ -11,14 +11,14 @@ public class OrdenDTO {
 	private EstadoDTO estado;
 	private double valorTotal;
 	private List<EventoDTO> evento;
-	
+	private int cantidad;
 	public OrdenDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
 	
 	public OrdenDTO(Integer idOrden, Integer servicio, HorarioDTO horario, EstadoDTO estado, double valorTotal,
-			List<EventoDTO> evento) {
+			List<EventoDTO> evento, int cantidad) {
 		super();
 		this.idOrden = idOrden;
 		this.servicio = servicio;
@@ -26,6 +26,7 @@ public class OrdenDTO {
 		this.estado = estado;
 		this.valorTotal = valorTotal;
 		this.evento = evento;
+		this.cantidad = cantidad;
 	}
 
 
@@ -75,6 +76,16 @@ public class OrdenDTO {
 
 	public void setEvento(List<EventoDTO> evento) {
 		this.evento = evento;
+	}
+
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
 	}
 
 	
