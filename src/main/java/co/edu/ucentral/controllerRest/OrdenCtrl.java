@@ -38,8 +38,7 @@ public class OrdenCtrl {
 	
 	@PostMapping(path = "/save-Orden")
 	private ResponseEntity<?> saveOrden(@RequestBody OrdenDTO ordendto){
-		ordenService.updateOrden(ordendto);
-		
-		return new ResponseEntity(HttpStatus.ACCEPTED);
+		OrdenDTO orden  =  ordenService.updateOrden(ordendto);
+		return new ResponseEntity<>(orden,HttpStatus.OK);
 	}
 }

@@ -59,7 +59,7 @@ public class ServicioServicesImp implements ServicesServicio {
 			Usuario usuario = usuarioReposiory.findByNumeroIdentificacion(map.getProveedor());
 			BeanUtils.copyProperties(usuario, proveedor);
 			servicio.add(
-					new ServicioDTO(map.getIdServicio(), map.getNombreServicio(), categoria, direccion, proveedor));
+					new ServicioDTO(map.getIdServicio(), map.getNombreServicio(), categoria, direccion, proveedor,map.getImagenServicio(),map.getDescripcionServicio()));
 		});
 
 		return servicio;

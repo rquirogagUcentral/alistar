@@ -17,7 +17,8 @@ public class ServicioDTO {
 	private List<DireccionDTO> direccion;
 	@NotNull(message = "el proveedor debe existir")
 	private UsuarioDTO proveedor;
-	
+	private String imagenServicio;
+	private String descripcionServicio;
 	public ServicioDTO() {
 		// TODO Auto-generated constructor stub
 	}
@@ -34,6 +35,23 @@ public class ServicioDTO {
 		this.categoria = categoria;
 		this.direccion = direccion;
 		this.proveedor = proveedor;
+	}
+
+
+
+	public ServicioDTO(Integer idServicio,String nombreServicio,
+			 List<CategoriaDTO> categoria,
+			 List<DireccionDTO> direccion,
+			 UsuarioDTO proveedor, String imagenServicio,
+			String descripcionServicio) {
+		super();
+		this.idServicio = idServicio;
+		this.nombreServicio = nombreServicio;
+		this.categoria = categoria;
+		this.direccion = direccion;
+		this.proveedor = proveedor;
+		this.imagenServicio = imagenServicio;
+		this.descripcionServicio = descripcionServicio;
 	}
 
 
@@ -78,6 +96,32 @@ public class ServicioDTO {
 	public void setIdServicio(Integer idServicio) {
 		this.idServicio = idServicio;
 	}
+	
+	
+	public String getImagenServicio() {
+		return imagenServicio;
+	}
+
+
+
+	public void setImagenServicio(String imagenServicio) {
+		this.imagenServicio = imagenServicio;
+	}
+
+
+
+	public String getDescripcionServicio() {
+		return descripcionServicio;
+	}
+
+
+
+	public void setDescripcionServicio(String descripcionServicio) {
+		this.descripcionServicio = descripcionServicio;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "ServicioDTO [nombreServicio=" + nombreServicio + ", categoria=" + categoria + ", direccion=" + direccion

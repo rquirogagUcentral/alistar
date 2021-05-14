@@ -37,7 +37,12 @@ public class Servicio implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "idDireccion")
 	private List<Direccion> direccion;
 	private Integer proveedor;
-
+	@Column(name = "descripcion_servicio")
+	private String descripcionServicio;
+	@Column(name = "imagen")
+	private String imagenServicio;
+	
+	
 	public Servicio() {
 		// TODO Auto-generated constructor stub
 	}
@@ -81,8 +86,22 @@ public class Servicio implements Serializable {
 	public void setProveedor(Integer proveedor) {
 		this.proveedor = proveedor;
 	}
+	public String getDescripcionServicio() {
+		return descripcionServicio;
+	}
 
-	
+	public void setDescripcionServicio(String descripcionServicio) {
+		this.descripcionServicio = descripcionServicio;
+	}
+
+	public String getImagenServicio() {
+		return imagenServicio;
+	}
+
+	public void setImagenServicio(String imagenServicio) {
+		this.imagenServicio = imagenServicio;
+	}
+
 	@Override
 	public String toString() {
 		return "Servicio [idServicio=" + idServicio + ", nombreServicio=" + nombreServicio + ", categoria=" + categoria
