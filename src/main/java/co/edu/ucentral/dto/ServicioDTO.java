@@ -1,10 +1,6 @@
 package co.edu.ucentral.dto;
 
-import java.util.List;
-
-
 import javax.validation.constraints.NotNull;
-import co.edu.ucentral.entidades.Categoria;
 
 public class ServicioDTO {
 
@@ -12,9 +8,9 @@ public class ServicioDTO {
 	@NotNull(message = "error")
 	private String nombreServicio;
 	@NotNull(message = "la cateoria no puede ir null")
-	private List<CategoriaDTO> categoria;
+	private CategoriaDTO categoria;
 	@NotNull(message = "las direcciones no pueden ir null")
-	private List<DireccionDTO> direccion;
+	private String direccion;
 	@NotNull(message = "el proveedor debe existir")
 	private UsuarioDTO proveedor;
 	private String imagenServicio;
@@ -26,8 +22,8 @@ public class ServicioDTO {
 	
 
 	public ServicioDTO(Integer idServicio,String nombreServicio,
-			List<CategoriaDTO> categoria,
-			List<DireccionDTO> direccion,
+			CategoriaDTO categoria,
+			String direccion,
 			UsuarioDTO proveedor) {
 		super();
 		this.idServicio=idServicio;
@@ -40,8 +36,8 @@ public class ServicioDTO {
 
 
 	public ServicioDTO(Integer idServicio,String nombreServicio,
-			 List<CategoriaDTO> categoria,
-			 List<DireccionDTO> direccion,
+			 CategoriaDTO categoria,
+			 String direccion,
 			 UsuarioDTO proveedor, String imagenServicio,
 			String descripcionServicio) {
 		super();
@@ -64,19 +60,19 @@ public class ServicioDTO {
 		this.nombreServicio = nombreServicio;
 	}
 
-	public List<CategoriaDTO> getCategoria() {
+	public CategoriaDTO getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(List<CategoriaDTO> categoria) {
+	public void setCategoria(CategoriaDTO categoria) {
 		this.categoria = categoria;
 	}
 
-	public List<DireccionDTO> getDireccion() {
+	public String getDireccion() {
 		return direccion;
 	}
 
-	public void setDireccion(List<DireccionDTO> direccion) {
+	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
 

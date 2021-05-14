@@ -30,12 +30,11 @@ public class Servicio implements Serializable {
 	private Integer idServicio;
 	@Column(name = "nombre_servicio", length = 60)
 	private String nombreServicio;
-	@Column(name = "categoria")
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "idCategoria")
-	private List<Categoria> categoria;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "categoria", referencedColumnName = "id_categoria" )
+	private Categoria categoria;
 	@Column(name = "direccion")
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "idDireccion")
-	private List<Direccion> direccion;
+	private String direccion;
 	private Integer proveedor;
 	@Column(name = "descripcion_servicio")
 	private String descripcionServicio;
@@ -63,19 +62,19 @@ public class Servicio implements Serializable {
 		this.nombreServicio = nombreServicio;
 	}
 
-	public List<Categoria> getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(List<Categoria> categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 
-	public List<Direccion> getDireccion() {
+	public String getDireccion() {
 		return direccion;
 	}
 
-	public void setDireccion(List<Direccion> direccion) {
+	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
 

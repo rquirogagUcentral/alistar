@@ -34,9 +34,7 @@ public class Categoria implements Serializable {
 
 	@Column(name = "nombre_categoria",length = 50)
 	private String nombreCategoria;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "servicio_id")
-	private Servicio servicio;
+	
 
 	public Categoria() {
 		
@@ -48,12 +46,7 @@ public class Categoria implements Serializable {
 		this.nombreCategoria = nombreCategoria;
 	}
 
-	public Categoria(Integer idCategoria, String nombreCategoria, Servicio servicio) {
-		super();
-		this.idCategoria = idCategoria;
-		this.nombreCategoria = nombreCategoria;
-		this.servicio = servicio;
-	}
+	
 
 	public Integer getIdCategoria() {
 		return idCategoria;
@@ -71,12 +64,6 @@ public class Categoria implements Serializable {
 		this.nombreCategoria = nombreCategoria;
 	}
 
-	public Servicio getServicio() {
-		return servicio;
-	}
-
-	public void setServicio(Servicio servicio) {
-		this.servicio = servicio;
-	}
+	
 
 }
