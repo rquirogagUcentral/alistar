@@ -19,49 +19,59 @@ public class Evento {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_evento")
 	private Integer idEvento;
-	@Column(name = "nombre_evento", length = 100)
-	private String nombreEvento;
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "usuario", referencedColumnName = "numero_identificacion")
-	private Usuario usuario;
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "orden", referencedColumnName = "id_orden")
+	@ManyToOne
+	@JoinColumn(name = "orden")
 	private Orden orden;
-
+	@Column(name = "valor_total")
+	private double valorTotal;
+	@Column(name = "cantidad")
+	private int cantidad;
+	@ManyToOne( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "servicio")
+	private Servicio servicio;
+	
+	
 	public Evento() {
-
+		super();
 	}
-
+	public Evento(Integer idEvento, Orden orden, double valorTotal, int cantidad, Servicio servicio) {
+		super();
+		this.idEvento = idEvento;
+		this.orden = orden;
+		this.valorTotal = valorTotal;
+		this.cantidad = cantidad;
+		this.servicio = servicio;
+	}
 	public Integer getIdEvento() {
 		return idEvento;
 	}
-
 	public void setIdEvento(Integer idEvento) {
 		this.idEvento = idEvento;
 	}
-
-	public String getNombreEvento() {
-		return nombreEvento;
-	}
-
-	public void setNombreEvento(String nombreEvento) {
-		this.nombreEvento = nombreEvento;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
 	public Orden getOrden() {
 		return orden;
 	}
-
 	public void setOrden(Orden orden) {
 		this.orden = orden;
 	}
+	public double getValorTotal() {
+		return valorTotal;
+	}
+	public void setValorTotal(double valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+	public int getCantidad() {
+		return cantidad;
+	}
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+	public Servicio getServicio() {
+		return servicio;
+	}
+	public void setServicio(Servicio servicio) {
+		this.servicio = servicio;
+	}
+	
 
 }

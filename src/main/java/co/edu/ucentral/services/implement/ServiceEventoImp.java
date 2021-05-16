@@ -27,11 +27,11 @@ public class ServiceEventoImp implements ServiceEvento {
 	@Override
 	public List<EventoDTO> eventos(int evento) {
 		Usuario usuario = usuarioRepository.findByNumeroIdentificacion(evento);
-		List<Evento> listEvento= eventoRepository.findByUsuario(usuario);
+		//List<Evento> listEvento= eventoRepository.findByUsuario(usuario);
 		ModelMapper modelMapper = new ModelMapper();
-		for (Evento evento2 : listEvento) {
-			logger.info("@@@@ =>  evento", evento2.getOrden());
-		}
+		/*for (Evento evento2 : listEvento) {
+			logger.info("@@@@ =>  evento", evento2);
+		}*/
 		// TODO Auto-generated method stub
 		return null;
 	}

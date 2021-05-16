@@ -3,21 +3,22 @@ package co.edu.ucentral.dto;
 public class EventoDTO {
 
 	private Integer idEvento;
-	private Integer usuario;
-	private OrdenDTO idOrden;
-
-	private String nombreEvento;
+	private OrdenDTO orden;
+	private double valorTotal;
+	private int cantidad;
+	private Integer servicio;
 	
 	public EventoDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public EventoDTO(Integer idEvento, Integer usuario, OrdenDTO idOrden, String nombreEvento) {
+	public EventoDTO(Integer idEvento, double valorTotal, int cantidad, Integer servicio) {
 		super();
 		this.idEvento = idEvento;
-		this.usuario = usuario;
-		this.idOrden = idOrden;
-		this.nombreEvento = nombreEvento;
+		
+		this.valorTotal = valorTotal;
+		this.cantidad = cantidad;
+		this.servicio = servicio;
 	}
 
 	public Integer getIdEvento() {
@@ -28,29 +29,37 @@ public class EventoDTO {
 		this.idEvento = idEvento;
 	}
 
-	public Integer getUsuario() {
-		return usuario;
+	public OrdenDTO getOrden() {
+		return orden;
 	}
 
-	public void setUsuario(Integer usuario) {
-		this.usuario = usuario;
+	public void setOrden(OrdenDTO orden) {
+		this.orden = orden;
 	}
 
-	public OrdenDTO getIdOrden() {
-		return idOrden;
+	public double getValorTotal() {
+		return valorTotal;
 	}
 
-	public void setIdOrden(OrdenDTO idOrden) {
-		this.idOrden = idOrden;
+	public void setValorTotal(double valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
-	public String getNombreEvento() {
-		return nombreEvento;
+	public int getCantidad() {
+		return cantidad;
 	}
 
-	public void setNombreEvento(String nombreEvento) {
-		this.nombreEvento = nombreEvento;
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
 	}
-	
+
+	public Integer getServicio() {
+		return servicio;
+	}
+
+	public void setServicio(Integer servicio) {
+		this.servicio = servicio;
+	}
+
 	
 }

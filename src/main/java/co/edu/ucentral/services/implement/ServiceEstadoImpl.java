@@ -27,9 +27,10 @@ public class ServiceEstadoImpl implements ServiceEstado {
 		List<EstadoDTO> estado = new ArrayList<EstadoDTO>();
 		
 		estadoRepository.findAll().stream().forEach(estados->{
+			logger.info("@@ Estado => {}",estados.getIdEstado());
 			estado.add(new EstadoDTO(estados.getIdEstado(),estados.getEstado()));
 		});
-		logger.info("@@ Estado => {}",estado.get(0));
+		logger.info("@@ Estado => {}",estado);
 		return estado;
 	}
 

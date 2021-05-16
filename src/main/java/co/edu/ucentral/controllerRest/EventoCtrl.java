@@ -29,13 +29,13 @@ public class EventoCtrl {
 	@GetMapping(path = "Get-evento-Usuario",params ="usuarioId" )
 	public ResponseEntity<?> getEventoUsuario(@RequestParam(required = true,value = "usuarioId") Integer usuarioId ){
 		Usuario usuario = usuarioRepository.findByNumeroIdentificacion(usuarioId);
-		List<Evento> listEvento= eventoRepository.findByUsuario(usuario);
+		//List<Evento> listEvento= eventoRepository.findByUsuario(usuario);
 		ResponseDto responseDto = new ResponseDto();
-		if(listEvento.isEmpty()) {
+		/*if(listEvento.isEmpty()) {
 			responseDto.setMensaje("No se encuetra ningun servicio");
 			return new ResponseEntity<>(responseDto,HttpStatus.NO_CONTENT);
-		}
-		return new ResponseEntity<>(listEvento,HttpStatus.OK);
+		}*/
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	

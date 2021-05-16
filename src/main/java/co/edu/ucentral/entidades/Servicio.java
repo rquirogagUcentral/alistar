@@ -40,6 +40,8 @@ public class Servicio implements Serializable {
 	private String descripcionServicio;
 	@Column(name = "imagen")
 	private String imagenServicio;
+	@Column(name = "precio_servicio")
+	private Double precionUnidad;
 	
 	
 	public Servicio() {
@@ -105,6 +107,14 @@ public class Servicio implements Serializable {
 	public String toString() {
 		return "Servicio [idServicio=" + idServicio + ", nombreServicio=" + nombreServicio + ", categoria=" + categoria
 				+ ", direccion=" + direccion + ", proveedor=" + proveedor + "]";
+	}
+
+	public Double getPrecionUnidad() {
+		return precionUnidad;
+	}
+
+	public void setPrecionUnidad(Double precionUnidad) {
+		this.precionUnidad = precionUnidad;
 	}
 
 	

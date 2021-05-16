@@ -10,6 +10,7 @@ public interface ServicesOrden {
 	OrdenDTO getOrden(Integer id);
 	boolean deleteOrden(Integer id);
 	OrdenDTO updateOrden(OrdenDTO orden);
+	List<OrdenDTO> getOrdenIdUsuario(int id);
 	
 
 }

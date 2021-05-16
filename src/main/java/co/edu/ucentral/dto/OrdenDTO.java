@@ -6,29 +6,16 @@ public class OrdenDTO {
 	
 	
 	private Integer idOrden;
-	private Integer servicio;
+	private String nombreEvento;
+	private Integer usuario;
 	private HorarioDTO horario;
 	private EstadoDTO estado;
-	private double valorTotal;
+	private double precioTotal;
 	private List<EventoDTO> evento;
-	private int cantidad;
+	
 	public OrdenDTO() {
 		// TODO Auto-generated constructor stub
 	}
-
-	
-	public OrdenDTO(Integer idOrden, Integer servicio, HorarioDTO horario, EstadoDTO estado, double valorTotal,
-			List<EventoDTO> evento, int cantidad) {
-		super();
-		this.idOrden = idOrden;
-		this.servicio = servicio;
-		this.horario = horario;
-		this.estado = estado;
-		this.valorTotal = valorTotal;
-		this.evento = evento;
-		this.cantidad = cantidad;
-	}
-
 
 	public Integer getIdOrden() {
 		return idOrden;
@@ -38,12 +25,20 @@ public class OrdenDTO {
 		this.idOrden = idOrden;
 	}
 
-	public Integer getServicio() {
-		return servicio;
+	public String getNombreEvento() {
+		return nombreEvento;
 	}
 
-	public void setServicio(Integer servicio) {
-		this.servicio = servicio;
+	public void setNombreEvento(String nombreEvento) {
+		this.nombreEvento = nombreEvento;
+	}
+
+	public Integer getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Integer usuario) {
+		this.usuario = usuario;
 	}
 
 	public HorarioDTO getHorario() {
@@ -62,12 +57,12 @@ public class OrdenDTO {
 		this.estado = estado;
 	}
 
-	public double getValorTotal() {
-		return valorTotal;
+	public double getPrecioTotal() {
+		return precioTotal;
 	}
 
-	public void setValorTotal(double valorTotal) {
-		this.valorTotal = valorTotal;
+	public void setPrecioTotal(double precioTotal) {
+		this.precioTotal = precioTotal;
 	}
 
 	public List<EventoDTO> getEvento() {
@@ -76,16 +71,6 @@ public class OrdenDTO {
 
 	public void setEvento(List<EventoDTO> evento) {
 		this.evento = evento;
-	}
-
-
-	public int getCantidad() {
-		return cantidad;
-	}
-
-
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
 	}
 
 	

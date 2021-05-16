@@ -27,13 +27,19 @@ public class OrdenCtrl {
 	private ResponseEntity<?> getByIdOrden(@RequestParam(required = true,value = "id") int id){
 		OrdenDTO ordenDto =ordenService.getOrden(id);
 		
-		return new ResponseEntity(ordenDto,HttpStatus.OK);
+		return new ResponseEntity<>(ordenDto,HttpStatus.OK);
 	}
 	@GetMapping()
 	private ResponseEntity<?> getByIdOrden(){
 	   List<OrdenDTO> Listadoorden = ordenService.listadoOrden();
 		
-		return new ResponseEntity(Listadoorden,HttpStatus.OK);
+		return new ResponseEntity<>(Listadoorden,HttpStatus.OK);
+	}
+	@GetMapping(path = "/getIdUsuario",params  = "id")
+	private ResponseEntity<?> getByIdUsuario(@RequestParam(required = true,value = "id") int id){
+		List<OrdenDTO> ordenDto =ordenService.getOrdenIdUsuario(id);
+		
+		return new ResponseEntity<>(ordenDto,HttpStatus.OK);
 	}
 	
 	@PostMapping(path = "/save-Orden")

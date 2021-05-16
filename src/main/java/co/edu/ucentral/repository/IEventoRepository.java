@@ -6,10 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import co.edu.ucentral.entidades.Evento;
 import co.edu.ucentral.entidades.Orden;
-import co.edu.ucentral.entidades.Usuario;
 
 public interface IEventoRepository extends JpaRepository<Evento, Integer> {
 
 	List<Evento> findByOrden(Orden orden);
-	List<Evento> findByUsuario(Usuario usuario);
+
 }
