@@ -15,6 +15,7 @@ public class ServicioDTO {
 	private UsuarioDTO proveedor;
 	private String imagenServicio;
 	private String descripcionServicio;
+	private double precionUnidad;
 	public ServicioDTO() {
 		// TODO Auto-generated constructor stub
 	}
@@ -48,6 +49,24 @@ public class ServicioDTO {
 		this.proveedor = proveedor;
 		this.imagenServicio = imagenServicio;
 		this.descripcionServicio = descripcionServicio;
+	}
+
+
+
+	public ServicioDTO(Integer idServicio,  String nombreServicio,
+			CategoriaDTO categoria,
+			String direccion,
+			UsuarioDTO proveedor, String imagenServicio,
+			String descripcionServicio, double precionUnidad) {
+		super();
+		this.idServicio = idServicio;
+		this.nombreServicio = nombreServicio;
+		this.categoria = categoria;
+		this.direccion = direccion;
+		this.proveedor = proveedor;
+		this.imagenServicio = imagenServicio;
+		this.descripcionServicio = descripcionServicio;
+		this.precionUnidad = precionUnidad;
 	}
 
 
@@ -114,6 +133,18 @@ public class ServicioDTO {
 
 	public void setDescripcionServicio(String descripcionServicio) {
 		this.descripcionServicio = descripcionServicio;
+	}
+
+
+
+	public double getPrecionUnidad() {
+		return precionUnidad;
+	}
+
+
+
+	public void setPrecionUnidad(double precionUnidad) {
+		this.precionUnidad = precionUnidad;
 	}
 
 

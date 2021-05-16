@@ -62,7 +62,7 @@ public class ServicioServicesImp implements ServicesServicio {
 			Usuario usuario = usuarioReposiory.findByNumeroIdentificacion(map.getProveedor());
 			BeanUtils.copyProperties(usuario, proveedor);
 			servicio.add(
-					new ServicioDTO(map.getIdServicio(),map.getNombreServicio(),categoria,map.getDireccion(),proveedor,map.getImagenServicio(),map.getDescripcionServicio()));
+					new ServicioDTO(map.getIdServicio(),map.getNombreServicio(),categoria,map.getDireccion(),proveedor,map.getImagenServicio(),map.getDescripcionServicio(), map.getPrecionUnidad()));
 		});
 
 		return servicio;
@@ -82,7 +82,7 @@ public class ServicioServicesImp implements ServicesServicio {
 		servis.setNombreServicio(servicio.getNombreServicio());
 		servis.setIdServicio(servicio.getIdServicio());
 		servis.setDescripcionServicio(servicio.getDescripcionServicio());
-		
+		servis.setPrecionUnidad(servicio.getPrecionUnidad());
 		logger.info("@@@ servicio => {}", servis.toString());
 		Servicio retorno = serviceRepository.save(servis);
 		/*servicio.getCategoria().stream().forEach(map -> {
