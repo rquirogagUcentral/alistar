@@ -1,4 +1,4 @@
-package co.edu.ucentral.controllerRest;
+package co.edu.ucentral.restcontroller;
 
 import java.util.List;
 

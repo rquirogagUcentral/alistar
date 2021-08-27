@@ -1,5 +1,6 @@
 package co.edu.ucentral.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -17,11 +18,15 @@ public class TiposDocumentoTest {
 	@Test
 	void crearUsuarioTest() {
 		TiposDocumento tipoDocumento= new TiposDocumento();
-		tipoDocumento.setDescripcionCorta("CE");
-		tipoDocumento.setDescripcionLarga("Cedula de Extranjeria");
+		tipoDocumento.setDescripcionCorta("CC");
+		tipoDocumento.setDescripcionLarga("Cedula de Ciudadania");
 		TiposDocumento retorno=tipoDocumentoRepository.save(tipoDocumento);
-		assertTrue(retorno.getDescripcionCorta().equalsIgnoreCase("CE"));
-		
+		assertTrue(retorno.getDescripcionCorta().equalsIgnoreCase("CC"));	
 	}
 
+	@Test
+	void seleccionarTipoDocumentoTest() {
+		TiposDocumento tipoDocumento = tipoDocumentoRepository.getOne(1);
+		assertEquals(tipoDocumento.getTipoDocumento(), 1);
+	}
 }

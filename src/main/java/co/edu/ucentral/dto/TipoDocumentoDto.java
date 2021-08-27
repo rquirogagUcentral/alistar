@@ -1,10 +1,12 @@
 package co.edu.ucentral.dto;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class TipoDocumentoDto {
 
 	@NotNull
+	@NotBlank(message = "documento")
 	private Integer tipoDocumento;
 	@NotNull
 	private String descripcionCorta;

@@ -1,4 +1,4 @@
-package co.edu.ucentral.controllerRest;
+package co.edu.ucentral.restcontroller;
 
 import java.util.List;
 
@@ -57,7 +57,7 @@ public class ServicioCtrl {
 			else
 				return new ResponseEntity<>(servicio, HttpStatus.OK);
 		} catch (Exception e) {
-			response.setMensaje("Error buscando el servicio");
+			//response.setMensaje("Error buscando el servicio");
 			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -69,14 +69,14 @@ public class ServicioCtrl {
 		try {
 			if (bd.hasErrors()) {
 				String mensaje = bd.getFieldError().toString();
-				response.setMensaje(mensaje);
+				//response.setMensaje(mensaje);
 				return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 			}
 			serviceServicio.getServio(servicio);
-			response.setMensaje("OK");
+			//response.setMensaje("OK");
 		} catch (Exception e) {
 			logger.error("Error : {}" , e.getMessage());
-			response.setMensaje("Error en el guardado de Servicio");
+			//response.setMensaje("Error en el guardado de Servicio");
 			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(response, HttpStatus.OK);
@@ -97,7 +97,7 @@ public class ServicioCtrl {
 		List<ServicioDTO> listadoServicio=serviceServicio.getByIdUsuario(usuarioId);
 		ResponseDto response = new ResponseDto();
 		if(listadoServicio.isEmpty()) {
-			response.setMensaje("NO se encuentra el usuario");
+			//response.setMensaje("NO se encuentra el usuario");
 			return new ResponseEntity<>(response,HttpStatus.OK);
 		}else
 			return new ResponseEntity<>(listadoServicio,HttpStatus.OK);

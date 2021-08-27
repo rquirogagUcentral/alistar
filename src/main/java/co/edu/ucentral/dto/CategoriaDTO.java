@@ -1,15 +1,17 @@
 package co.edu.ucentral.dto;
 
-import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class CategoriaDTO {
 
-	@NotNull(message = "la categoria no puede ir vacia")
-	@Min(value = 1,message = "La categoria debe tener mas de un digito")
 	private Integer idCategoria;
+	@NotBlank(message = "el nombre de la categoria no puede estar vacia ")
 	@NotNull(message = "El nombre de la categoria no puede  ")
 	private String nombreCategoria;
+	
+	
+	
 	public CategoriaDTO() {
 		
 	}

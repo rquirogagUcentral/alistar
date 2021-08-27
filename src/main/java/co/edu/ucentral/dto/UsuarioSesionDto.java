@@ -1,22 +1,13 @@
 package co.edu.ucentral.dto;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
-import org.springframework.validation.annotation.Validated;
-
-@Validated
 public class UsuarioSesionDto {
 
-	@NotNull(message = "El campo no puede ir vacio ")
-	@Size(min = 1, max = 30)
+	@Min(value = 1,message = "el umero no puede ser 0")
 	private Integer usuario;
-	@NotNull
-	@NotBlank(message = "password no debe ir en blaco")
-	@NotEmpty
-	@Size(min = 1, max = 30)
+	@NotEmpty(message = "El password no puede ir vacio")
 	private String password;
 
 	public UsuarioSesionDto() {

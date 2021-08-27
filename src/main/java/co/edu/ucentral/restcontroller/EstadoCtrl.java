@@ -1,4 +1,4 @@
-package co.edu.ucentral.controllerRest;
+package co.edu.ucentral.restcontroller;
 
 import java.util.List;
 
@@ -45,15 +45,15 @@ public class EstadoCtrl {
 		ResponseDto response = new ResponseDto();
 		if (bd.hasErrors()) {
 			String mensaje = bd.getFieldError().toString();
-			response.setMensaje(mensaje);
+	//		response.setMensaje(mensaje);
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		} else {
 			try {
 				EstadoDTO respose = (EstadoDTO) estadoService.crearServicio(estado);
-				response.setMensaje("OK");
+		//		response.setMensaje("OK");
 				return new ResponseEntity<>(response, HttpStatus.CREATED);
 			} catch (Exception e) {
-				response.setMensaje("Error creado el servicio");
+	//			response.setMensaje("Error creado el servicio");
 				return new ResponseEntity<>(response, HttpStatus.SERVICE_UNAVAILABLE);
 			}
 		}

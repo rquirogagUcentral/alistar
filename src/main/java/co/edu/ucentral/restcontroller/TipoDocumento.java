@@ -1,4 +1,4 @@
-package co.edu.ucentral.controllerRest;
+package co.edu.ucentral.restcontroller;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ import co.edu.ucentral.entidades.TiposDocumento;
 import co.edu.ucentral.repository.ITipoDocumentoRepository;
 
 @RestController
-@RequestMapping(path = "TiposDocumentos")
-public class TipoDocumentoCtr {
+@RequestMapping(path = "typeDocuments")
+public class TipoDocumento {
 
 	@Autowired
 	private ITipoDocumentoRepository tipoDocumentoRepo;
