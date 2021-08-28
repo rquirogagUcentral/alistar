@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -42,44 +44,49 @@ public class CategoriaCtrl {
 	@GetMapping
 	public ResponseEntity<?> getAllCategorias() {
 		List<Categoria> listaCategoria = categoriaRepository.findAll();
+		if(listaCategoria.isEmpty()) {
+			return ResponseEntity.noContent().build();
+		}
 		return new ResponseEntity<>(listaCategoria, HttpStatus.OK);
 	}
 
 	@PostMapping(path = "/save-categoria")
-	public ResponseEntity<?> saveCategoria(@Validated @RequestBody CategoriaDTO categoria, BindingResult bd){
+	public ResponseEntity<?> saveCategoria(@Valid @RequestBody CategoriaDTO categoriaDto, BindingResult bd) {
 
 		if (bd.hasErrors()) {
 			logger.info("binding {}");
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,this.formatMessage(bd));
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, this.formatMessage(bd));
 		} else {
-			logger.info("@ @ =>> categorias => {},", categoria.toString());
+			logger.info("@ @ =>> categorias => {},", categoriaDto.toString());
 			Categoria c = new Categoria();
-			BeanUtils.copyProperties(categoria, c);
-			Categoria cat =categoriaRepository.save(c);
-			CategoriaDTO categoriadto =new CategoriaDTO();
+			BeanUtils.copyProperties(categoriaDto, c);
+			Categoria cat = categoriaRepository.save(c);
+			CategoriaDTO categoriadto = new CategoriaDTO();
 			BeanUtils.copyProperties(cat, categoriadto);
-			
+
 			return new ResponseEntity<>(categoriadto, HttpStatus.CREATED);
 		}
 	}
 
 	@DeleteMapping(path = "/delete-categoria", params = "id")
 	private ResponseEntity<?> deleteCategoria(@RequestParam(required = true, value = "id") int id) {
-		categoriaRepository.deleteById(id);
 		boolean deleteCategoria = categoriaRepository.existsById(id);
-		return new ResponseEntity<>(!deleteCategoria, HttpStatus.OK);
+		if (deleteCategoria) {
+			categoriaRepository.deleteById(id);
+		}
+		return new ResponseEntity<>(deleteCategoria, HttpStatus.OK);
 	}
 
 	public String formatMessage(BindingResult bd) {
-		List<Map<String, String>> errors =  bd.getFieldErrors().stream().map(err -> {
-			Map<String, String> error =new HashMap<>();
+		List<Map<String, String>> errors = bd.getFieldErrors().stream().map(err -> {
+			Map<String, String> error = new HashMap<>();
 			error.put(err.getField(), err.getDefaultMessage());
 			return error;
 		}).collect(Collectors.toList());
-		ResponseDto response =new  ResponseDto();
+		ResponseDto response = new ResponseDto();
 		response.setMensaje(errors);
-		logger.info("prueba {} ",response.getMensaje().toArray());
+		logger.info("prueba {} ", response.getMensaje().toArray());
 		return response.toString();
-	}	
+	}
 
 }

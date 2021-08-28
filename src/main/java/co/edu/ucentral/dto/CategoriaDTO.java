@@ -1,10 +1,12 @@
 package co.edu.ucentral.dto;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class CategoriaDTO {
 
+	@Min(value = 1, message = "El valor no puede ser nulo o 0 ")
 	private Integer idCategoria;
 	@NotBlank(message = "el nombre de la categoria no puede estar vacia ")
 	@NotNull(message = "El nombre de la categoria no puede  ")

@@ -4,10 +4,15 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.util.Date;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 public class HorarioDTO {
 
 	private Integer idHorario;
+	@Temporal(TemporalType.DATE)
 	private Date fecha;
+	@Temporal(TemporalType.TIME)
 	private Time hora;
 	
 	

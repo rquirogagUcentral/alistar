@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import co.edu.ucentral.dto.EstadoDTO;
-import co.edu.ucentral.dto.ResponseDto;
 import co.edu.ucentral.services.EstadoService;
+import co.edu.ucentral.util.MensajeFormat;
 
 @RestController
 @RequestMapping(path = "/estado")
@@ -42,19 +43,14 @@ public class EstadoCtrl {
 
 	@PostMapping
 	public ResponseEntity<?> saveEstado(@Valid @RequestBody EstadoDTO estado,BindingResult bd) {
-		ResponseDto response = new ResponseDto();
 		if (bd.hasErrors()) {
-			String mensaje = bd.getFieldError().toString();
-	//		response.setMensaje(mensaje);
-			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, new MensajeFormat().formatoMensaje(bd));
 		} else {
 			try {
 				EstadoDTO respose = (EstadoDTO) estadoService.crearServicio(estado);
-		//		response.setMensaje("OK");
-				return new ResponseEntity<>(response, HttpStatus.CREATED);
+				return new ResponseEntity<>(respose, HttpStatus.CREATED);
 			} catch (Exception e) {
-	//			response.setMensaje("Error creado el servicio");
-				return new ResponseEntity<>(response, HttpStatus.SERVICE_UNAVAILABLE);
+				return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
 			}
 		}
 		
