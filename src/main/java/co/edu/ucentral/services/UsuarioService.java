@@ -10,5 +10,5 @@ public interface UsuarioService {
 	UsuarioDTO usuario(Integer id);
 	UsuarioDTO getUsurioBypasword(Integer id, String clave);
 	UsuarioDTO updateUsuario(UsuarioDTO usuarioDto);
-	
+	void deleteById(Integer id);
 }

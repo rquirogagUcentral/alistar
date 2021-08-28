@@ -37,6 +37,7 @@ import co.edu.ucentral.dto.UsuarioSesionDto;
 import co.edu.ucentral.entidades.Usuario;
 import co.edu.ucentral.exception.MessageError;
 import co.edu.ucentral.repository.IUsuariosRepository;
+import co.edu.ucentral.services.UsuarioService;
 
 @RestController
 @RequestMapping(path = "/Usuarios")
@@ -45,11 +46,13 @@ public class UsuarioCtr {
 	private static Logger logger = LoggerFactory.getLogger(UsuarioCtr.class);
 	@Autowired
 	private IUsuariosRepository usuarioRepository;
+	@Autowired
+	private UsuarioService usuarioService;
 
 	@GetMapping()
 	private ResponseEntity<?> getUsuario() throws SQLException {
 
-		List<Usuario> listaUsuario = usuarioRepository.findAll();
+		List<UsuarioDTO> listaUsuario = usuarioService.listadoUsuarios();
 		if (listaUsuario.isEmpty()) {
 			return ResponseEntity.noContent().build();
 		}
@@ -61,42 +64,30 @@ public class UsuarioCtr {
 		if (bd.hasErrors()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, this.formatoMensaje(bd));
 		}
-		Usuario usuarios = usuarioRepository.findByNumeroIdentificacionAndPassword(usuarioDto.getUsuario(),
-				usuarioDto.getPassword());
-		if (usuarios == null) {
+		UsuarioDTO usuario = usuarioService.getUsurioBypasword(usuarioDto.getUsuario(), usuarioDto.getPassword());
+
+		if (usuario == null) {
 			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok(usuarios);
+		return ResponseEntity.ok(usuario);
 
 	}
 
 	@PostMapping(value = "/save-usuario")
-	private ResponseEntity<ResponseDto> saveUsuario(@Valid @RequestBody UsuarioDTO usuario, BindingResult bd) {
+	private ResponseEntity<?> saveUsuario(@Valid @RequestBody UsuarioDTO usuariodto, BindingResult bd) {
 
-		ResponseDto response = new ResponseDto();
 		if (bd.hasErrors()) {
+			logger.error("Erorr al validar el formulario {}", this.formatoMensaje(bd));
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, this.formatoMensaje(bd));
 		}
-		try {
-			logger.info("Usuarios {},", usuario.toString());
-			Usuario u = new Usuario();
-			BeanUtils.copyProperties(usuario, u);
-			Timestamp ts = new Timestamp(usuario.getFechaNacimiento().getTime());
-			u.setFechaNacimiento(ts);
-			usuarioRepository.save(u);
-			
-		} catch (Exception e) {
-			return new ResponseEntity<>(response, HttpStatus.SERVICE_UNAVAILABLE);
-		}
-		return new ResponseEntity<>(response, HttpStatus.OK);
+		UsuarioDTO usuario = usuarioService.updateUsuario(usuariodto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
 	}
 
 	@DeleteMapping(value = "/remove-usuario/{id}")
-	private ResponseEntity<ResponseDto> deleteUsuario(@RequestParam(required = true, name = "id") int id) {
-		ResponseDto response = new ResponseDto();
-		usuarioRepository.deleteById(id);
-
-		return new ResponseEntity<>(response, HttpStatus.OK);
+	private ResponseEntity<?> deleteUsuario(@RequestParam(required = true, name = "id") int id) {
+		usuarioService.deleteById(id);
+		return ResponseEntity.ok().build();
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -117,14 +108,14 @@ public class UsuarioCtr {
 			er.put(err.getField(), err.getDefaultMessage());
 			return er;
 		}).collect(Collectors.toList());
-		 MessageError errorMensaje = new MessageError(0, error);
-		 ObjectMapper maper = new ObjectMapper();
-		 String jsonString ="";
-		 try {
+		MessageError errorMensaje = new MessageError(0, error);
+		ObjectMapper maper = new ObjectMapper();
+		String jsonString = "";
+		try {
 			jsonString = maper.writeValueAsString(errorMensaje);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		 return jsonString;
+		return jsonString;
 	}
 }

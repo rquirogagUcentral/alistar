@@ -47,6 +47,8 @@ public class Usuario implements Serializable {
 	private Telefono telefono;
 	@Column(name = "email",length = 60)
 	private String email;
+	@Column(name = "imagen")
+	private byte[] imagen;
 	
 	public Usuario() {
 	}
@@ -126,6 +128,14 @@ public class Usuario implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
 	}
 
 	

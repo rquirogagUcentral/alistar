@@ -8,4 +8,5 @@ public interface IUsuariosRepository extends JpaRepository<Usuario, Integer>{
 
 	Usuario findByNumeroIdentificacionAndPassword(Integer numeroIdentificacion, String pass);
 	Usuario findByNumeroIdentificacion(Integer numeroIdentificacion);
+	
 }
