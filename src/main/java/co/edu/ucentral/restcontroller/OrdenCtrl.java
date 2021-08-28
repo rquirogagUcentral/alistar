@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.ucentral.dto.OrdenDTO;
-import co.edu.ucentral.services.ServicesOrden;
+import co.edu.ucentral.services.OrdenServices;
 
 @RestController
 @RequestMapping(path = "/Orden")
@@ -21,7 +21,7 @@ public class OrdenCtrl {
 
 
 	@Autowired
-	private ServicesOrden ordenService;
+	private OrdenServices ordenService;
 	
 	@GetMapping(path = "/getIdOrden",params  = "id")
 	private ResponseEntity<?> getByIdOrden(@RequestParam(required = true,value = "id") int id){

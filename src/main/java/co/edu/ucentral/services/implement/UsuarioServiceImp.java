@@ -35,8 +35,13 @@ public class UsuarioServiceImp implements UsuarioService {
 
 	@Override
 	public UsuarioDTO getUsurioBypasword(Integer id, String clave) {
+		UsuarioDTO usuarioDto=null;
 		Usuario usuario = usuarioRepository.findByNumeroIdentificacionAndPassword(id,clave);
-		UsuarioDTO usuarioDto= covertToDto(usuario);
+		if(usuario !=null) {
+			usuarioDto= covertToDto(usuario);
+		}
+		
+		
 		return usuarioDto;
 	}
 
@@ -51,11 +56,6 @@ public class UsuarioServiceImp implements UsuarioService {
 	private Usuario convertToEntity(UsuarioDTO usuarioDto) {
 		ModelMapper modelMapper=new ModelMapper(); 
 		Usuario usaurio =modelMapper.map(usuarioDto, Usuario.class);
-		Telefono telefono = telefonoRepository.findByTelefono(usaurio.getTelefono().getTelefono());
-		if(telefono!=null) {
-			usaurio.setTelefono(telefono);		
-		}
-		
 		return usaurio;
 	}
 

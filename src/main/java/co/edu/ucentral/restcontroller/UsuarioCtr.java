@@ -85,7 +85,7 @@ public class UsuarioCtr {
 	}
 
 	@DeleteMapping(value = "/remove-usuario/{id}")
-	private ResponseEntity<?> deleteUsuario(@RequestParam(required = true, name = "id") int id) {
+	private ResponseEntity<?> deleteUsuario(@RequestParam(required = true, name = "id") Integer id) {
 		usuarioService.deleteById(id);
 		return ResponseEntity.ok().build();
 	}

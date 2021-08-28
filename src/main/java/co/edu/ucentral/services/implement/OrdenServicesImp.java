@@ -23,12 +23,12 @@ import co.edu.ucentral.repository.IEventoRepository;
 import co.edu.ucentral.repository.IServiciosRepository;
 import co.edu.ucentral.repository.IUsuariosRepository;
 import co.edu.ucentral.repository.InterOrdenRepository;
-import co.edu.ucentral.services.ServicesOrden;
+import co.edu.ucentral.services.OrdenServices;
 
 @Service
-public class ServiceOrdenImpl implements ServicesOrden {
+public class OrdenServicesImp implements OrdenServices {
 
-	private static Logger logger = LoggerFactory.getLogger(ServiceOrdenImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(OrdenServicesImp.class);
 	@Autowired
 	private InterOrdenRepository ordenRepository;
 	@Autowired

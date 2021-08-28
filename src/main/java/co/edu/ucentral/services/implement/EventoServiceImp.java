@@ -13,12 +13,12 @@ import co.edu.ucentral.entidades.Evento;
 import co.edu.ucentral.entidades.Usuario;
 import co.edu.ucentral.repository.IEventoRepository;
 import co.edu.ucentral.repository.IUsuariosRepository;
-import co.edu.ucentral.services.ServiceEvento;
+import co.edu.ucentral.services.EventoServices;
 
 @Service
-public class ServiceEventoImp implements ServiceEvento {
+public class EventoServiceImp implements EventoServices {
 
-	private static Logger logger = LoggerFactory.getLogger(ServiceEventoImp.class);
+	private static Logger logger = LoggerFactory.getLogger(EventoServiceImp.class);
 	@Autowired
 	private IEventoRepository eventoRepository;
 	@Autowired

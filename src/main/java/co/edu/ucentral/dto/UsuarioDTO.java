@@ -22,7 +22,7 @@ public class UsuarioDTO {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaNacimiento;
 	@NotNull(message = "El numero no puede ir vacio")
-	private Telefono telefono;
+	private String telefono;
 	@NotNull(message = "El numero no puede ir vacio")
 	private String direccion;
 	@NotNull(message = "El numero no puede ir vacio")
@@ -34,8 +34,15 @@ public class UsuarioDTO {
 	public UsuarioDTO() {
 		
 	}
-	public UsuarioDTO(Integer numeroIdentificacion, TiposDocumento tipoDocumento, String nombre, Date fechaNacimiento,
-			Telefono telefono, String direccion, String password, String email) {
+	
+	public UsuarioDTO( Integer numeroIdentificacion,
+			 TiposDocumento tipoDocumento,
+			 String nombre,
+			Date fechaNacimiento,
+			 String telefono,
+			 String direccion,
+			 String password,
+			String email) {
 		super();
 		this.numeroIdentificacion = numeroIdentificacion;
 		this.tipoDocumento = tipoDocumento;
@@ -46,6 +53,27 @@ public class UsuarioDTO {
 		this.password = password;
 		this.email = email;
 	}
+
+	public UsuarioDTO( Integer numeroIdentificacion,
+			 TiposDocumento tipoDocumento,
+			 String nombre,
+			Date fechaNacimiento,
+			 String telefono,
+			 String direccion,
+			 String password,
+			String email, byte[] imagen) {
+		super();
+		this.numeroIdentificacion = numeroIdentificacion;
+		this.tipoDocumento = tipoDocumento;
+		this.nombre = nombre;
+		this.fechaNacimiento = fechaNacimiento;
+		this.telefono = telefono;
+		this.direccion = direccion;
+		this.password = password;
+		this.email = email;
+		this.imagen = imagen;
+	}
+
 
 	public Integer getNumeroIdentificacion() {
 		return numeroIdentificacion;
@@ -79,11 +107,11 @@ public class UsuarioDTO {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public Telefono getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(Telefono telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 
@@ -110,11 +138,14 @@ public class UsuarioDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public byte[] getImagen() {
 		return imagen;
 	}
+
 	public void setImagen(byte[] imagen) {
 		this.imagen = imagen;
 	}
+	
 
 }

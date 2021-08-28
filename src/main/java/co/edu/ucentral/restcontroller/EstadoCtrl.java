@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.ucentral.dto.EstadoDTO;
 import co.edu.ucentral.dto.ResponseDto;
-import co.edu.ucentral.services.ServiceEstado;
+import co.edu.ucentral.services.EstadoService;
 
 @RestController
 @RequestMapping(path = "/estado")
@@ -26,7 +26,7 @@ public class EstadoCtrl {
 
 	private static Logger logger = LoggerFactory.getLogger(EstadoCtrl.class);
 	@Autowired
-	private ServiceEstado estadoService;
+	private EstadoService estadoService;
 
 	@GetMapping
 	public ResponseEntity<?> getEstados() {

@@ -4,7 +4,7 @@ import java.util.List;
 
 import co.edu.ucentral.dto.EstadoDTO;
 
-public interface ServiceEstado {
+public interface EstadoService {
 
 	List<EstadoDTO> listadoService();
 

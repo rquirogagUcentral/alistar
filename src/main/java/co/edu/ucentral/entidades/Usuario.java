@@ -42,9 +42,7 @@ public class Usuario implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
 	@JoinColumn(name = "tipoDocumento",referencedColumnName = "tipo_documento")
 	private TiposDocumento tipoDocumento;
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "telefono", referencedColumnName = "id_Telefono" )
-	private Telefono telefono;
+	private String telefono;
 	@Column(name = "email",length = 60)
 	private String email;
 	@Column(name = "imagen")
@@ -53,8 +51,10 @@ public class Usuario implements Serializable {
 	public Usuario() {
 	}
 	
+	
+
 	public Usuario(Integer numeroIdentificacion, String direccion, Timestamp fechaNacimiento, String nombre,
-			String password, TiposDocumento tipoDocumento, Telefono telefono, String email) {
+			String password, TiposDocumento tipoDocumento, String telefono, String email) {
 		super();
 		this.numeroIdentificacion = numeroIdentificacion;
 		this.direccion = direccion;
@@ -65,6 +65,24 @@ public class Usuario implements Serializable {
 		this.telefono = telefono;
 		this.email = email;
 	}
+
+
+
+	public Usuario(Integer numeroIdentificacion, String direccion, Timestamp fechaNacimiento, String nombre,
+			String password, TiposDocumento tipoDocumento, String telefono, String email, byte[] imagen) {
+		super();
+		this.numeroIdentificacion = numeroIdentificacion;
+		this.direccion = direccion;
+		this.fechaNacimiento = fechaNacimiento;
+		this.nombre = nombre;
+		this.password = password;
+		this.tipoDocumento = tipoDocumento;
+		this.telefono = telefono;
+		this.email = email;
+		this.imagen = imagen;
+	}
+
+
 
 	public Integer getNumeroIdentificacion() {
 		return numeroIdentificacion;
@@ -114,11 +132,11 @@ public class Usuario implements Serializable {
 		this.tipoDocumento = tipoDocumento;
 	}
 
-	public Telefono getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(Telefono telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 
@@ -137,7 +155,8 @@ public class Usuario implements Serializable {
 	public void setImagen(byte[] imagen) {
 		this.imagen = imagen;
 	}
-
+	
+	
 	
 	
 

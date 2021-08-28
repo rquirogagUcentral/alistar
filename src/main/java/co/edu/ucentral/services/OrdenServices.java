@@ -4,7 +4,7 @@ import java.util.List;
 
 import co.edu.ucentral.dto.OrdenDTO;
 
-public interface ServicesOrden {
+public interface OrdenServices {
 	
 	List<OrdenDTO> listadoOrden();
 	OrdenDTO getOrden(Integer id);

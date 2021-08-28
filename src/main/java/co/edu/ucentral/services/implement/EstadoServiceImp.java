@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 import co.edu.ucentral.dto.EstadoDTO;
 import co.edu.ucentral.entidades.Estado;
 import co.edu.ucentral.repository.IEstadoRepository;
-import co.edu.ucentral.services.ServiceEstado;
+import co.edu.ucentral.services.EstadoService;
 
 @Service
-public class ServiceEstadoImpl implements ServiceEstado {
+public class EstadoServiceImp implements EstadoService {
 
-	private static Logger logger = LoggerFactory.getLogger(ServiceEstadoImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(EstadoServiceImp.class);
 	@Autowired
 	private IEstadoRepository estadoRepository;
 
