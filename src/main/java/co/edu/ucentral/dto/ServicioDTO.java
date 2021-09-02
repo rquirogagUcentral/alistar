@@ -13,7 +13,7 @@ public class ServicioDTO {
 	private String direccion;
 	@NotNull(message = "el proveedor debe existir")
 	private UsuarioDTO proveedor;
-	private String imagenServicio;
+	private byte[] imagenServicio;
 	private String descripcionServicio;
 	private double precionUnidad;
 	public ServicioDTO() {
@@ -39,7 +39,7 @@ public class ServicioDTO {
 	public ServicioDTO(Integer idServicio,String nombreServicio,
 			 CategoriaDTO categoria,
 			 String direccion,
-			 UsuarioDTO proveedor, String imagenServicio,
+			 UsuarioDTO proveedor, byte[] imagenServicio,
 			String descripcionServicio) {
 		super();
 		this.idServicio = idServicio;
@@ -56,7 +56,7 @@ public class ServicioDTO {
 	public ServicioDTO(Integer idServicio,  String nombreServicio,
 			CategoriaDTO categoria,
 			String direccion,
-			UsuarioDTO proveedor, String imagenServicio,
+			UsuarioDTO proveedor, byte[] imagenServicio,
 			String descripcionServicio, double precionUnidad) {
 		super();
 		this.idServicio = idServicio;
@@ -113,13 +113,13 @@ public class ServicioDTO {
 	}
 	
 	
-	public String getImagenServicio() {
+	public byte[] getImagenServicio() {
 		return imagenServicio;
 	}
 
 
 
-	public void setImagenServicio(String imagenServicio) {
+	public void setImagenServicio(byte[] imagenServicio) {
 		this.imagenServicio = imagenServicio;
 	}
 

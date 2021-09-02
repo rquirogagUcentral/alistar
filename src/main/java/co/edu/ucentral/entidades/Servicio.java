@@ -35,7 +35,7 @@ public class Servicio implements Serializable {
 	@Column(name = "descripcion_servicio")
 	private String descripcionServicio;
 	@Column(name = "imagen")
-	private String imagenServicio;
+	private byte[] imagenServicio;
 	@Column(name = "precio_servicio")
 	private Double precionUnidad;
 	
@@ -91,11 +91,11 @@ public class Servicio implements Serializable {
 		this.descripcionServicio = descripcionServicio;
 	}
 
-	public String getImagenServicio() {
+	public byte[] getImagenServicio() {
 		return imagenServicio;
 	}
 
-	public void setImagenServicio(String imagenServicio) {
+	public void setImagenServicio(byte[] imagenServicio) {
 		this.imagenServicio = imagenServicio;
 	}
 
