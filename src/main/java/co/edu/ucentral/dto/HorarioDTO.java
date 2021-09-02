@@ -1,7 +1,6 @@
 package co.edu.ucentral.dto;
 
 import java.sql.Time;
-import java.time.LocalTime;
 import java.util.Date;
 
 import javax.persistence.Temporal;

@@ -7,7 +7,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import co.edu.ucentral.entidades.Telefono;
 import co.edu.ucentral.entidades.TiposDocumento;
 
 public class UsuarioDTO {

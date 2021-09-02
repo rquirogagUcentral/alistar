@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.ucentral.dto.UsuarioDTO;
-import co.edu.ucentral.entidades.Telefono;
 import co.edu.ucentral.entidades.Usuario;
 import co.edu.ucentral.repository.IUsuariosRepository;
 import co.edu.ucentral.repository.ItelefonoRepository;

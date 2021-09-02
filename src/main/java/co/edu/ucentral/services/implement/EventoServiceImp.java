@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.ucentral.dto.EventoDTO;
-import co.edu.ucentral.entidades.Evento;
 import co.edu.ucentral.entidades.Usuario;
 import co.edu.ucentral.repository.IEventoRepository;
 import co.edu.ucentral.repository.IUsuariosRepository;
