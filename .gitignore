@@ -1,0 +1,8 @@
+/target/
+.dbeaver
+.settings
+.classphat
+/build/
+/dist/
+src/main/resources/
+/logs/
