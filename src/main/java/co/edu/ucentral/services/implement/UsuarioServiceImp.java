@@ -1,10 +1,17 @@
 package co.edu.ucentral.services.implement;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import co.edu.ucentral.dto.UsuarioDTO;
@@ -13,12 +20,12 @@ import co.edu.ucentral.repository.IUsuariosRepository;
 import co.edu.ucentral.repository.ItelefonoRepository;
 import co.edu.ucentral.services.UsuarioService;
 
+
 @Service
 public class UsuarioServiceImp implements UsuarioService {
 	@Autowired
 	private IUsuariosRepository usuarioRepository;
-	@Autowired 
-	private ItelefonoRepository telefonoRepository;
+	
 
 	@Override
 	public List<UsuarioDTO> listadoUsuarios() {
@@ -33,15 +40,16 @@ public class UsuarioServiceImp implements UsuarioService {
 	}
 
 	@Override
-	public UsuarioDTO getUsurioBypasword(Integer id, String clave) {
+	public UsuarioDTO  getUsurioBypasword(Integer id, String clave) {
 		UsuarioDTO usuarioDto=null;
 		Usuario usuario = usuarioRepository.findByNumeroIdentificacionAndPassword(id,clave);
 		if(usuario !=null) {
 			usuarioDto= covertToDto(usuario);
 		}
 		
-		
 		return usuarioDto;
+		
+		
 	}
 
 	@Override
@@ -66,5 +74,25 @@ public class UsuarioServiceImp implements UsuarioService {
 		ModelMapper modelMapper=new ModelMapper(); 
 		UsuarioDTO usuDto =  modelMapper.map(usurario,UsuarioDTO.class);
 		return usuDto ;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(Integer usuario) {
+		Usuario usuarioTemp = usuarioRepository.findByNumeroIdentificacion(usuario);
+		List<GrantedAuthority>  roles= new ArrayList<>();
+		roles.add(new SimpleGrantedAuthority("ADMIN"));
+		UserDetails userDet  = new User(usuarioTemp.getNumeroIdentificacion().toString(),usuarioTemp.getPassword(), roles); 
+		return userDet;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		
+		Usuario usuarioTemp = usuarioRepository.findByNumeroIdentificacion(Integer.parseInt(username));
+		List<GrantedAuthority>  roles= new ArrayList<>();
+		roles.add(new SimpleGrantedAuthority("ADMIN"));
+		UserDetails userDet  = new User(usuarioTemp.getNumeroIdentificacion().toString(),usuarioTemp.getPassword(), roles); 
+	
+		return userDet;
 	}
 }

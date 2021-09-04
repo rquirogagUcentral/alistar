@@ -15,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -31,6 +32,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import co.edu.ucentral.JwtUtil.UtilJwt;
 import co.edu.ucentral.dto.ResponseDto;
 import co.edu.ucentral.dto.UsuarioDTO;
 import co.edu.ucentral.dto.UsuarioSesionDto;
@@ -39,16 +41,26 @@ import co.edu.ucentral.exception.MessageError;
 import co.edu.ucentral.repository.IUsuariosRepository;
 import co.edu.ucentral.services.UsuarioService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+
+
+
 @RestController
 @RequestMapping(path = "/Usuarios")
 public class UsuarioCtr {
 
 	private static Logger logger = LoggerFactory.getLogger(UsuarioCtr.class);
-	@Autowired
-	private IUsuariosRepository usuarioRepository;
+	
 	@Autowired
 	private UsuarioService usuarioService;
-
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	@Autowired
+	private UtilJwt jwtTokenUtil;
 	@GetMapping()
 	private ResponseEntity<?> getUsuario() throws SQLException {
 
@@ -88,6 +100,39 @@ public class UsuarioCtr {
 	private ResponseEntity<?> deleteUsuario(@RequestParam(required = true, name = "id") Integer id) {
 		usuarioService.deleteById(id);
 		return ResponseEntity.ok().build();
+	}
+	
+	
+	@PostMapping(value = "/autenticacion")
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody UsuarioSesionDto usuarioDto) throws Exception {
+		Object jwtRespuesta ="";
+		logger.info(" se realiza el metodo de autenicacion")
+		;
+		logger.info(" se realiza el metodo de autenicacion {}",usuarioDto.getUsuario())
+		;
+		logger.info(" se realiza el metodo de autenicacion {}",usuarioDto.getPassword())
+		;
+		try {
+			try {
+				authenticationManager.authenticate(
+						new UsernamePasswordAuthenticationToken(usuarioDto.getUsuario(), usuarioDto.getPassword()));
+			} catch (BadCredentialsException e) {
+				logger.error("fallo en el metodo de utentificacion{}",e.getMessage());
+				throw new Exception("Incorrect username or password", e);
+				
+			}
+			final UserDetails userDetails = usuarioService.loadUserByUsername(usuarioDto.getUsuario());
+			final String jwt = jwtTokenUtil.generateToken(userDetails);
+			 jwtRespuesta ="{jwt:"+jwt+"}";
+			logger.info("Objeto Respuesta" ,jwtRespuesta)
+			;
+			
+		} catch (Exception e) {
+			logger.error("Errer al loguear {} ", e.getMessage());
+			
+		}
+		return ResponseEntity.ok(jwtRespuesta);
+
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
