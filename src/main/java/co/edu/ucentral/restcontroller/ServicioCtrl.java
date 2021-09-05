@@ -18,12 +18,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import co.edu.ucentral.dto.ResponseDto;
+import co.edu.ucentral.dto.RespuestaGenerica;
 import co.edu.ucentral.dto.ServicioDTO;
 import co.edu.ucentral.entidades.Servicio;
 import co.edu.ucentral.repository.IServiciosRepository;
 import co.edu.ucentral.services.ServicesServicio;
+import co.edu.ucentral.util.MensajeFormat;
 
 @RestController
 @RequestMapping(path = "/Servicio")
@@ -33,8 +36,7 @@ public class ServicioCtrl {
 	@Autowired
 	private ServicesServicio serviceServicio;
 
-	@Autowired
-	private IServiciosRepository serviceRepository;
+	
 	
 	@GetMapping()
 	private ResponseEntity<?> getServices() {
@@ -57,26 +59,24 @@ public class ServicioCtrl {
 			else
 				return new ResponseEntity<>(servicio, HttpStatus.OK);
 		} catch (Exception e) {
-			//response.setMensaje("Error buscando el servicio");
+			
 			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@PostMapping(path = "/save-Servicio")
 	public ResponseEntity<?> saveServicio(@Valid @RequestBody ServicioDTO servicio, BindingResult bd) {
-		ResponseDto response = new ResponseDto();
+		RespuestaGenerica response = new RespuestaGenerica();
 		logger.info("@@@ servicio => {}",servicio.toString());
 		try {
 			if (bd.hasErrors()) {
-				String mensaje = bd.getFieldError().toString();
-				//response.setMensaje(mensaje);
-				return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST,new MensajeFormat().formatoMensaje(bd));
 			}
 			serviceServicio.getServio(servicio);
-			//response.setMensaje("OK");
+			
 		} catch (Exception e) {
 			logger.error("Error : {}" , e.getMessage());
-			//response.setMensaje("Error en el guardado de Servicio");
+			
 			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(response, HttpStatus.OK);

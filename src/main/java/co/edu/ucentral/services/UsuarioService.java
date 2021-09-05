@@ -15,5 +15,5 @@ public interface UsuarioService extends UserDetailsService {
 	UsuarioDTO getUsurioBypasword(Integer id, String clave);
 	UsuarioDTO updateUsuario(UsuarioDTO usuarioDto);
 	void deleteById(Integer id);
-	
+	boolean validaUsuario(UsuarioDTO usuarioDto);
 }
