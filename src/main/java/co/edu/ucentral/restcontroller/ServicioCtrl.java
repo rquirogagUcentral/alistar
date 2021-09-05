@@ -59,7 +59,7 @@ public class ServicioCtrl {
 			else
 				return new ResponseEntity<>(servicio, HttpStatus.OK);
 		} catch (Exception e) {
-			//response.setMensaje("Error buscando el servicio");
+			
 			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -73,10 +73,10 @@ public class ServicioCtrl {
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST,new MensajeFormat().formatoMensaje(bd));
 			}
 			serviceServicio.getServio(servicio);
-			//response.setMensaje("OK");
+			
 		} catch (Exception e) {
 			logger.error("Error : {}" , e.getMessage());
-			//response.setMensaje("Error en el guardado de Servicio");
+			
 			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(response, HttpStatus.OK);
