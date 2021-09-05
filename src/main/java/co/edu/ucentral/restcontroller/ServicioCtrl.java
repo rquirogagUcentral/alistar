@@ -36,8 +36,7 @@ public class ServicioCtrl {
 	@Autowired
 	private ServicesServicio serviceServicio;
 
-	@Autowired
-	private IServiciosRepository serviceRepository;
+	
 	
 	@GetMapping()
 	private ResponseEntity<?> getServices() {
