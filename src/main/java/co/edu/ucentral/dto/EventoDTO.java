@@ -1,11 +1,18 @@
 package co.edu.ucentral.dto;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 public class EventoDTO {
 
 	private Integer idEvento;
 	private OrdenDTO orden;
+	@NotNull
+	@Min(value = 1, message = "el valor no puede ser 0")
 	private double valorTotal;
+	@Min(value = 1, message = "el valor no puede ser 0")
 	private int cantidad;
+	@Min(value = 1, message = "Servicio no valido")
 	private Integer servicio;
 	
 	public EventoDTO() {

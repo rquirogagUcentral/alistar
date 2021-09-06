@@ -14,6 +14,7 @@ import co.edu.ucentral.dto.EstadoDTO;
 import co.edu.ucentral.dto.EventoDTO;
 import co.edu.ucentral.dto.HorarioDTO;
 import co.edu.ucentral.dto.OrdenDTO;
+import co.edu.ucentral.dto.UsuarioDTO;
 import co.edu.ucentral.entidades.Evento;
 import co.edu.ucentral.entidades.Orden;
 import co.edu.ucentral.entidades.Servicio;
@@ -23,6 +24,7 @@ import co.edu.ucentral.repository.IServiciosRepository;
 import co.edu.ucentral.repository.IUsuariosRepository;
 import co.edu.ucentral.repository.InterOrdenRepository;
 import co.edu.ucentral.services.OrdenServices;
+import co.edu.ucentral.services.UsuarioService;
 
 @Service
 public class OrdenServicesImp implements OrdenServices {
@@ -36,12 +38,17 @@ public class OrdenServicesImp implements OrdenServices {
 	private IUsuariosRepository usuarioRepository;
 	@Autowired
 	private IServiciosRepository servicioRepository;
-
+	/*
+	 * Nueva logica 
+	 * */
+	@Autowired
+	private UsuarioService usuario;
+	
+	
+	
 	@Override
 	public List<OrdenDTO> listadoOrden() {
-
 		List<Orden> listaOrden = ordenRepository.findAll();
-
 		return listaOrden.stream().map(this::convertToDto).collect(Collectors.toList());
 	}
 
@@ -66,6 +73,11 @@ public class OrdenServicesImp implements OrdenServices {
 		ModelMapper modelMapper = new ModelMapper();
 		Orden orden = modelMapper.map(ordendto, Orden.class);
 		Usuario usuario = usuarioRepository.findByNumeroIdentificacion(ordendto.getUsuario());
+		if(usuario==null) {
+			logger.error("Usuario null : {}",ordendto.getNombreEvento());
+			throw new  UnsupportedOperationException("Usuario no valido");
+		}
+			
 		orden.setUsuario(usuario);
 		List<Evento> envento= sertearLista(ordendto.getEvento());
 		orden.setEvento(envento);
@@ -108,23 +120,10 @@ public class OrdenServicesImp implements OrdenServices {
 
 	private OrdenDTO convertToDto(Orden orden) {
 		ModelMapper modelMapper = new ModelMapper();
-		List<Evento> evento= eventoRepositry.findByOrden(orden);
-		orden.setEvento(evento);
-		OrdenDTO ordendto = new OrdenDTO();
+		OrdenDTO ordendto = modelMapper.map(orden, OrdenDTO.class);
+		orden.getUsuario().getNumeroIdentificacion();
 		ordendto.setUsuario(orden.getUsuario().getNumeroIdentificacion());
-		HorarioDTO horarioDto = modelMapper.map(orden.getHorario(), HorarioDTO.class);
-		EstadoDTO estadoDto = modelMapper.map(orden.getEstado(), EstadoDTO.class);
-		ordendto.setHorario(horarioDto);
-		ordendto.setEstado(estadoDto);
-		ordendto.setPrecioTotal(orden.getPrecioTotal());
-		ordendto.setIdOrden(orden.getIdOrden());
-		ordendto.setNombreEvento(orden.getNombreEvento());
-		List<EventoDTO> eventoDto =convertEvento(evento);
-		ordendto.setEvento(eventoDto);
-	// ordendto = modelMapper.map(orden, OrdenDTO.class);
 		
-		
-		//
 		return ordendto;
 	}
 
