@@ -8,8 +8,8 @@ public interface ServicesServicio {
 	
 	List<ServicioDTO> AllServicio();
 	ServicioDTO getServio(ServicioDTO servicio);
-	ServicioDTO getByIdServicio(ServicioDTO servicio, int id);
-	ServicioDTO deleteSericio(int id);
-	List<ServicioDTO> getByIdUsuario(int id);
-
+	ServicioDTO getByIdServicio(Integer id);
+	ServicioDTO deleteSericio(Integer id);
+	List<ServicioDTO> getByIdUsuario(Integer id);
+	boolean existServiceById(Integer id);
 }
