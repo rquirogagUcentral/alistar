@@ -2,15 +2,22 @@ package co.edu.ucentral.dto;
 
 import java.util.List;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+
 public class OrdenDTO {
 	
 	
 	private Integer idOrden;
+	@NotBlank(message = "el nombre del evento no puede estar vacio")
 	private String nombreEvento;
+	@Min(message = "El usuario no puede ir vacio o en 0", value = 1)
 	private Integer usuario;
 	private HorarioDTO horario;
 	private EstadoDTO estado;
+	@Min(message = "El precio no puede estar en 0", value = 1)
 	private double precioTotal;
+	
 	private List<EventoDTO> evento;
 	
 	public OrdenDTO() {

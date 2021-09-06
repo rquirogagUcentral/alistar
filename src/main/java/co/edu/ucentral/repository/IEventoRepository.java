@@ -9,6 +9,6 @@ import co.edu.ucentral.entidades.Orden;
 
 public interface IEventoRepository extends JpaRepository<Evento, Integer> {
 
-	List<Evento> findByOrden(Orden orden);
+	List<Evento> findByOrden(Integer orden);
 
 }
