@@ -18,12 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import co.edu.ucentral.dto.ResponseDto;
+import co.edu.ucentral.dto.RespuestaGenerica;
 import co.edu.ucentral.dto.ServicioDTO;
-import co.edu.ucentral.entidades.Servicio;
-import co.edu.ucentral.repository.IServiciosRepository;
 import co.edu.ucentral.services.ServicesServicio;
+import co.edu.ucentral.util.MensajeFormat;
 
 @RestController
 @RequestMapping(path = "/Servicio")
@@ -46,39 +47,45 @@ public class ServicioCtrl {
 	}
 
 	@GetMapping(params = "id")
-	public ResponseEntity<?> buscarById(@RequestParam(required = true, name = "id") int id) {
-		ResponseDto response = new ResponseDto();
+	public ResponseEntity<?> buscarById(@RequestParam(required = true, name = "id") Integer id) {
+		RespuestaGenerica respuesta = new  RespuestaGenerica();
 		try {
 
-			ServicioDTO servicio = serviceServicio.getByIdServicio(null, id);
+			ServicioDTO servicio = serviceServicio.getByIdServicio(id);
 			if (servicio == null)
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			else
 				return new ResponseEntity<>(servicio, HttpStatus.OK);
 		} catch (Exception e) {
-			//response.setMensaje("Error buscando el servicio");
-			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			logger.error("Error al consultar el servicio {}", e.getMessage());
+			respuesta.setCodigo(404);
+			respuesta.setResponse("Usuario no encontrado ");
+			return new ResponseEntity<>(respuesta, HttpStatus.CONFLICT);
 		}
 	}
 
 	@PostMapping(path = "/save-Servicio")
 	public ResponseEntity<?> saveServicio(@Valid @RequestBody ServicioDTO servicio, BindingResult bd) {
-		ResponseDto response = new ResponseDto();
+		RespuestaGenerica response = new RespuestaGenerica();
 		logger.info("@@@ servicio => {}",servicio.toString());
 		try {
 			if (bd.hasErrors()) {
-				String mensaje = bd.getFieldError().toString();
-				//response.setMensaje(mensaje);
-				return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST,new MensajeFormat().formatoMensaje(bd));
 			}
-			serviceServicio.getServio(servicio);
-			//response.setMensaje("OK");
+			if(serviceServicio.existServiceById(servicio.getIdServicio()))
+				servicio = serviceServicio.getServio(servicio);
+			else {
+				response.setCodigo(304);
+				response.setResponse("No modificado, Servicio existente ");
+				return new ResponseEntity<>(response, HttpStatus.NOT_MODIFIED);
+			}
 		} catch (Exception e) {
 			logger.error("Error : {}" , e.getMessage());
-			//response.setMensaje("Error en el guardado de Servicio");
+			response.setCodigo(500);
+			response.setResponse("Error en el procesado de la peticion ");
 			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<>(response, HttpStatus.OK);
+		return new ResponseEntity<>(servicio, HttpStatus.CREATED);
 	}
 
 	@PutMapping(path = "/modify")

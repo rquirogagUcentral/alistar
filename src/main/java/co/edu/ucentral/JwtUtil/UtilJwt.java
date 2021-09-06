@@ -47,8 +47,6 @@ public class UtilJwt {
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         UsuarioDTO usuario = usuarioService.usuario(Integer.parseInt(userDetails.getUsername()) );
-        
-        
         claims.put("nombreUusario",usuario.getNombre() );
         claims.put("email",usuario.getEmail() );
         claims.put("direccion",usuario.getDireccion());
