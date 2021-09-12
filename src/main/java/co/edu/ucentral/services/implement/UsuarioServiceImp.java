@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import co.edu.ucentral.dto.UsuarioDTO;
@@ -22,7 +23,7 @@ import co.edu.ucentral.services.UsuarioService;
 public class UsuarioServiceImp implements UsuarioService {
 	@Autowired
 	private IUsuariosRepository usuarioRepository;
-
+	
 	@Override
 	public List<UsuarioDTO> listadoUsuarios() {
 		return usuarioRepository.findAll().stream().map(this::covertToDto).collect(Collectors.toList());
@@ -68,6 +69,7 @@ public class UsuarioServiceImp implements UsuarioService {
 	private Usuario convertToEntity(UsuarioDTO usuarioDto) {
 		ModelMapper modelMapper = new ModelMapper();
 		Usuario usaurio = modelMapper.map(usuarioDto, Usuario.class);
+		
 		return usaurio;
 	}
 
