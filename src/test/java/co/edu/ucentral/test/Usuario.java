@@ -21,8 +21,8 @@ public class Usuario {
 	@Test
 	void pruebaUsuario() {
 		
-		co.edu.ucentral.entidades.Usuario user = usuario.findByNumeroIdentificacion(90089125);
-		user.setPassword(encoder.encode("VivirVivir"));
+		co.edu.ucentral.entidades.Usuario user = usuario.findByNumeroIdentificacion(123456789);
+		user.setPassword(encoder.encode("1234"));
 		co.edu.ucentral.entidades.Usuario retorno =usuario.save(user);
 		
 		
