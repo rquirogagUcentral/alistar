@@ -8,6 +8,7 @@
 select * from categorias;
 SELECT * FROM USUARIOS;
 SELECT * FROM TIPOS_DOCUMENTOS;
+select * from servicios;
 /*
  * BORRADO DE LOS DATOS 
  * 
