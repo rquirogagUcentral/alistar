@@ -1,20 +1,25 @@
-INSERT INTO CATEGORIAS(id_categoria, nombre_categoria) VALUES (1, 'Musica Electronica');
-INSERT INTO CATEGORIAS(id_categoria, nombre_categoria) VALUES (2, 'Musica Urbana');
-INSERT INTO CATEGORIAS(id_categoria, nombre_categoria) VALUES (4, 'Mariachis');
-INSERT INTO CATEGORIAS(id_categoria, nombre_categoria) VALUES (5, 'banquetes');
-INSERT INTO CATEGORIAS(id_categoria, nombre_categoria) VALUES (6, 'establesicimiento');
-INSERT INTO CATEGORIAS(id_categoria, nombre_categoria) VALUES (7, 'transporte');
-/*INSERT INTO CATEGORIAS(id_categoria, nombre_categoria) VALUES (8, 'Musica');
-INSERT INTO CATEGORIAS(id_categoria, nombre_categoria) VALUES (9, 'Musica');
-INSERT INTO CATEGORIAS(id_categoria, nombre_categoria) VALUES (10, 'Musica');
-INSERT INTO CATEGORIAS(id_categoria, nombre_categoria) VALUES (11, 'Musica');
-INSERT INTO CATEGORIAS(id_categoria, nombre_categoria) VALUES (12, 'Musica');
-INSERT INTO CATEGORIAS(id_categoria, nombre_categoria) VALUES (13, 'Musica');
-INSERT INTO CATEGORIAS(id_categoria, nombre_categoria) VALUES (14, 'Musica');
-INSERT INTO CATEGORIAS(id_categoria, nombre_categoria) VALUES (15, 'Musica');
-INSERT INTO CATEGORIAS(id_categoria, nombre_categoria) VALUES (16, 'Musica');
-INSERT INTO CATEGORIAS(id_categoria, nombre_categoria) VALUES (17, 'Musica');
-INSERT INTO CATEGORIAS(id_categoria, nombre_categoria) VALUES (18, 'Musica');*/
-INSERT INTO public.estados(id_estado, estado)VALUES(1, 'Ocupado');
-INSERT INTO public.estados(id_estado, estado)VALUES(2, 'Libre');
+/*
+ *SQL datos base de datos 
+ * SELECT DATOS 
+ * 
+ * */
 
+
+select * from categorias;
+SELECT * FROM USUARIOS;
+SELECT * FROM TIPOS_DOCUMENTOS;
+select * from servicios;
+/*
+ * BORRADO DE LOS DATOS 
+ * 
+ * */
+delete from servicios;
+delete from servicios where id_servicio= 45;
+delete from categorias;
+
+/*
+ * Insertar data 
+ */
+insert into categorias values (1,'Cosina');
+insert into categorias values (2,'Comida');
+insert into categorias values (3,'DJ (disc-jockey)');

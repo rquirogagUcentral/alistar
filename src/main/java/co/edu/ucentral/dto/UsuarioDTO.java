@@ -7,10 +7,13 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import co.edu.ucentral.entidades.TiposDocumento;
 
 public class UsuarioDTO {
 
+	private BCryptPasswordEncoder encoder;
 	@NotNull(message = "El numero no puede ir vacio")
 	private Integer numeroIdentificacion;
 	@NotNull(message = "El numero no puede ir vacio")
@@ -127,7 +130,8 @@ public class UsuarioDTO {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		encoder =new BCryptPasswordEncoder();
+		this.password = encoder.encode(password);
 	}
 
 	public String getEmail() {

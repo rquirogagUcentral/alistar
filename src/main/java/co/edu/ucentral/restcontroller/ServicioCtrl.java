@@ -90,12 +90,16 @@ public class ServicioCtrl {
 
 	@PutMapping(path = "/modify")
 	public ResponseEntity<?> modificar(@Valid @RequestBody ServicioDTO servicio, BindingResult bd) {
-
+		logger.info("@@@ servicio => {}",servicio.toString());
+		
+		servicio = serviceServicio.getServio(servicio);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@DeleteMapping(path = "/delete-Servicio", params = "id")
 	public ResponseEntity<?> eliminarServicio(@RequestParam(required = true, name = "id") int id) {
+		
+		 serviceServicio.deleteSericio(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	@GetMapping(path = "get-usuario-service", params =  "usuarioId")

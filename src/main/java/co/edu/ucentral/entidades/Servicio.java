@@ -26,7 +26,7 @@ public class Servicio implements Serializable {
 	private Integer idServicio;
 	@Column(name = "nombre_servicio", length = 60)
 	private String nombreServicio;
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne( fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoria", referencedColumnName = "id_categoria" )
 	private Categoria categoria;
 	@Column(name = "direccion")
