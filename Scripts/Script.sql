@@ -14,6 +14,7 @@ select * from servicios;
  * 
  * */
 delete from servicios;
+delete from servicios where id_servicio= 45;
 delete from categorias;
 
 /*
