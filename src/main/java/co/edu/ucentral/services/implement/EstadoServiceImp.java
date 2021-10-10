@@ -2,7 +2,9 @@ package co.edu.ucentral.services.implement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -24,34 +26,52 @@ public class EstadoServiceImp implements EstadoService {
 	@Override
 	public List<EstadoDTO> listadoService() {
 
-		List<EstadoDTO> estado = new ArrayList<EstadoDTO>();
-		
-		estadoRepository.findAll().stream().forEach(estados->{
-			logger.info("@@ Estado => {}",estados.getIdEstado());
-			estado.add(new EstadoDTO(estados.getIdEstado(),estados.getEstado()));
-		});
-		logger.info("@@ Estado => {}",estado);
+		List<EstadoDTO> estado = estadoRepository.findAll().stream().map(this::convertToDTO)
+				.collect(Collectors.toList());
+		logger.info("@@ Estado => {}", estado);
 		return estado;
 	}
 
 	@Override
-	public EstadoDTO crearServicio(EstadoDTO servicioDto) {
-		Estado estado = new Estado();
-		BeanUtils.copyProperties(servicioDto, estado);
-		logger.info("@@ Estado => {}",servicioDto.getIdEstado());
-		Estado resultado = estadoRepository.save(estado);
-		BeanUtils.copyProperties(resultado, servicioDto);
-		logger.info("@@ Estado resultado => {}",servicioDto.getIdEstado());
-		return servicioDto;
+	public EstadoDTO createEstate(EstadoDTO estadoDto) {
+		Estado estado = convertToEntiti(estadoDto);
+		Estado temp = estadoRepository.findByEstado(estado.getEstado());
+		if(temp!=null) {
+			estado = estadoRepository.save(temp);		
+		}
+		else
+			estado = estadoRepository.save(estado);
+		return convertToDTO(estado);
 	}
 
-	/*
-	 * @Override public boolean crearServicio(ServicioDTO servicio) { Servicio
-	 * serviciodb= new Servicio(); Usuario usaurio= new Usuario();
-	 * BeanUtils.copyProperties(servicio.getProveedor(), usaurio);
-	 * serviciodb.setProveedor(usaurio); BeanUtils.copyProperties(servicio,
-	 * serviciodb); servicioRespository.save(serviciodb); return
-	 * servicioRespository.existsById(serviciodb.getIdServicio()); }
-	 */
+	@Override
+	public EstadoDTO update(EstadoDTO estadoDto) {
+		Estado estado = convertToEntiti(estadoDto);
+		Estado temp = estadoRepository.findByEstado(estado.getEstado()); 
+		if(temp!=null) {
+			estado = estadoRepository.save(temp);		
+		}
+		else
+			estado = estadoRepository.save(estado);
+		
+		return convertToDTO(estado);
+	}
+
+	@Override
+	public void delete(int id) {
+		estadoRepository.deleteById(id);
+	}
+
+	private EstadoDTO convertToDTO(Estado estado) {
+		ModelMapper modelMapper = new ModelMapper();
+		EstadoDTO estadoDto = modelMapper.map(estado, EstadoDTO.class);
+		return estadoDto;
+	}
+
+	private Estado convertToEntiti(EstadoDTO estadoDto) {
+		ModelMapper modelMapper = new ModelMapper();
+		Estado estado = modelMapper.map(estadoDto, Estado.class);
+		return estado;
+	}
 
 }

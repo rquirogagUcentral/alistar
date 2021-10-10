@@ -1,27 +1,25 @@
 package co.edu.ucentral.dto;
 
-import java.util.List;
-
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 
 public class OrdenDTO {
-	
-	
+
 	private Integer idOrden;
-	@NotBlank(message = "el nombre del evento no puede estar vacio")
-	private String nombreEvento;
 	@Min(message = "El usuario no puede ir vacio o en 0", value = 1)
-	private Integer usuario;
-	private HorarioDTO horario;
-	private EstadoDTO estado;
-	@Min(message = "El precio no puede estar en 0", value = 1)
-	private double precioTotal;
-	
-	private List<EventoDTO> evento;
-	
+	private Integer servicio;
+	@Min(message = "El usuario no puede ir vacio o en 0", value = 1)
+	private int cantidad;
+	@Min(message = "El usuario no puede ir vacio o en 0", value = 1)
+	private double totalOrden;
+
 	public OrdenDTO() {
-		// TODO Auto-generated constructor stub
+	}
+	public OrdenDTO(Integer idOrden, Integer servicio, int cantidad, double totalOrden) {
+		super();
+		this.idOrden = idOrden;
+		this.servicio = servicio;
+		this.cantidad = cantidad;
+		this.totalOrden = totalOrden;
 	}
 
 	public Integer getIdOrden() {
@@ -32,54 +30,28 @@ public class OrdenDTO {
 		this.idOrden = idOrden;
 	}
 
-	public String getNombreEvento() {
-		return nombreEvento;
+	public Integer getServicio() {
+		return servicio;
 	}
 
-	public void setNombreEvento(String nombreEvento) {
-		this.nombreEvento = nombreEvento;
+	public void setServicio(Integer servicio) {
+		this.servicio = servicio;
 	}
 
-	public Integer getUsuario() {
-		return usuario;
+	public int getCantidad() {
+		return cantidad;
 	}
 
-	public void setUsuario(Integer usuario) {
-		this.usuario = usuario;
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
 	}
 
-	public HorarioDTO getHorario() {
-		return horario;
+	public double getTotalOrden() {
+		return totalOrden;
 	}
 
-	public void setHorario(HorarioDTO horario) {
-		this.horario = horario;
+	public void setTotalOrden(double totalOrden) {
+		this.totalOrden = totalOrden;
 	}
-
-	public EstadoDTO getEstado() {
-		return estado;
-	}
-
-	public void setEstado(EstadoDTO estado) {
-		this.estado = estado;
-	}
-
-	public double getPrecioTotal() {
-		return precioTotal;
-	}
-
-	public void setPrecioTotal(double precioTotal) {
-		this.precioTotal = precioTotal;
-	}
-
-	public List<EventoDTO> getEvento() {
-		return evento;
-	}
-
-	public void setEvento(List<EventoDTO> evento) {
-		this.evento = evento;
-	}
-
-	
 
 }

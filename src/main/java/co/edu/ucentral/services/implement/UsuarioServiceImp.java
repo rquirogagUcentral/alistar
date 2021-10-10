@@ -105,4 +105,9 @@ public class UsuarioServiceImp implements UsuarioService {
 
 		return userDet;
 	}
+
+	@Override
+	public Usuario usuarioById(Integer id) {
+		return usuarioRepository.findByNumeroIdentificacion(id);
+	}
 }

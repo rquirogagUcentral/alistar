@@ -1,32 +1,25 @@
 package co.edu.ucentral.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
+import co.edu.ucentral.entidades.Estado;
+import co.edu.ucentral.entidades.Horario;
+import co.edu.ucentral.entidades.Orden;
+import co.edu.ucentral.entidades.Usuario;
 
 public class EventoDTO {
 
 	private Integer idEvento;
-	private OrdenDTO orden;
+	private List<OrdenDTO> orden;
 	@NotNull
 	@Min(value = 1, message = "el valor no puede ser 0")
 	private double valorTotal;
-	@Min(value = 1, message = "el valor no puede ser 0")
-	private int cantidad;
-	@Min(value = 1, message = "Servicio no valido")
-	private Integer servicio;
-	
-	public EventoDTO() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public EventoDTO(Integer idEvento, double valorTotal, int cantidad, Integer servicio) {
-		super();
-		this.idEvento = idEvento;
-		
-		this.valorTotal = valorTotal;
-		this.cantidad = cantidad;
-		this.servicio = servicio;
-	}
+	private HorarioDTO horario;
+	private Integer usuario;
+	private EstadoDTO estado;
 
 	public Integer getIdEvento() {
 		return idEvento;
@@ -36,11 +29,11 @@ public class EventoDTO {
 		this.idEvento = idEvento;
 	}
 
-	public OrdenDTO getOrden() {
+	public List<OrdenDTO> getOrden() {
 		return orden;
 	}
 
-	public void setOrden(OrdenDTO orden) {
+	public void setOrden(List<OrdenDTO> orden) {
 		this.orden = orden;
 	}
 
@@ -52,21 +45,28 @@ public class EventoDTO {
 		this.valorTotal = valorTotal;
 	}
 
-	public int getCantidad() {
-		return cantidad;
+	public HorarioDTO getHorario() {
+		return horario;
 	}
 
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
+	public void setHorario(HorarioDTO horario) {
+		this.horario = horario;
 	}
 
-	public Integer getServicio() {
-		return servicio;
+	public Integer getUsuario() {
+		return usuario;
 	}
 
-	public void setServicio(Integer servicio) {
-		this.servicio = servicio;
+	public void setUsuario(Integer usuario) {
+		this.usuario = usuario;
 	}
 
-	
+	public EstadoDTO getEstado() {
+		return estado;
+	}
+
+	public void setEstado(EstadoDTO estado) {
+		this.estado = estado;
+	}
+
 }

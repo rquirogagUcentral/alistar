@@ -1,6 +1,5 @@
 package co.edu.ucentral.services.implement;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,21 +9,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import co.edu.ucentral.dto.EstadoDTO;
 import co.edu.ucentral.dto.EventoDTO;
-import co.edu.ucentral.dto.HorarioDTO;
 import co.edu.ucentral.dto.OrdenDTO;
-import co.edu.ucentral.dto.UsuarioDTO;
+import co.edu.ucentral.dto.ServicioDTO;
 import co.edu.ucentral.entidades.Evento;
 import co.edu.ucentral.entidades.Orden;
 import co.edu.ucentral.entidades.Servicio;
-import co.edu.ucentral.entidades.Usuario;
-import co.edu.ucentral.repository.IEventoRepository;
-import co.edu.ucentral.repository.IServiciosRepository;
-import co.edu.ucentral.repository.IUsuariosRepository;
 import co.edu.ucentral.repository.InterOrdenRepository;
+import co.edu.ucentral.services.EventoServices;
 import co.edu.ucentral.services.OrdenServices;
-import co.edu.ucentral.services.UsuarioService;
+import co.edu.ucentral.services.ServicesServicio;
 
 @Service
 public class OrdenServicesImp implements OrdenServices {
@@ -33,115 +27,94 @@ public class OrdenServicesImp implements OrdenServices {
 	@Autowired
 	private InterOrdenRepository ordenRepository;
 	@Autowired
-	private IEventoRepository eventoRepositry;
+	private ServicesServicio servicio;
 	@Autowired
-	private IUsuariosRepository usuarioRepository;
-	@Autowired
-	private IServiciosRepository servicioRepository;
-	/*
-	 * Nueva logica 
-	 * */
-	@Autowired
-	private UsuarioService usuario;
-	
-	
+	private EventoServices eventoServis;
 	
 	@Override
-	public List<OrdenDTO> listadoOrden() {
+	public List<OrdenDTO> listOrden() {
 		List<Orden> listaOrden = ordenRepository.findAll();
-		return listaOrden.stream().map(this::convertToDto).collect(Collectors.toList());
+		return listaOrden.stream().map(this::convertToDto ).collect(Collectors.toList());	
 	}
 
 	@Override
-	public OrdenDTO getOrden(Integer id) {
-		ModelMapper modelMapper = new ModelMapper();
-		Orden orden = ordenRepository.findByIdOrden(id);
-		OrdenDTO orderDto =convertToDto(orden);
-		//OrdenDTO orderDto = modelMapper.map(orden, OrdenDTO.class);
-		return orderDto;
+	public List<OrdenDTO> listOrdenByEvento(Evento eventoid) {
+		List<Orden> listaOrden = ordenRepository.findByEvento(eventoid);
+		return listaOrden.stream().map(this::convertToDto ).collect(Collectors.toList());
 	}
 
 	@Override
-	public boolean deleteOrden(Integer id) {
-		ordenRepository.deleteById(id);
-		boolean eliminado = ordenRepository.existsById(id);
-		return !eliminado;
+	public OrdenDTO createOrden(OrdenDTO ordenDto) {
+		Orden orden = converToEntity(ordenDto);
+		orden = ordenRepository.save(orden);
+		return convertToDto(orden);
 	}
+
+	
 
 	@Override
-	public OrdenDTO updateOrden(OrdenDTO ordendto) {
-		ModelMapper modelMapper = new ModelMapper();
-		Orden orden = modelMapper.map(ordendto, Orden.class);
-		Usuario usuario = usuarioRepository.findByNumeroIdentificacion(ordendto.getUsuario());
-		if(usuario==null) {
-			logger.error("Usuario null : {}",ordendto.getNombreEvento());
-			throw new  UnsupportedOperationException("Usuario no valido");
-		}
-			
-		orden.setUsuario(usuario);
-		List<Evento> envento= sertearLista(ordendto.getEvento());
-		orden.setEvento(envento);
-		logger.info("@@@=>Orden  ==> {}", orden.toString());
-		Orden response = ordenRepository.save(orden);
-		crearEventos(ordendto.getEvento(),response);
-		logger.info("@@@=>Orden  ==> {}", response.toString());
-		return ordendto;
+	public List<OrdenDTO> createOrdenList(List<OrdenDTO> orden) {
+		
+		return orden.stream().map(this::crearOrden).collect(Collectors.toList());
+		 
 	}
 
-	private List<Evento> sertearLista(List<EventoDTO> evento) {
-		List<Evento> enventos =new ArrayList<Evento>();
-		
-		
-		evento.stream().forEach(map->{
-			Evento eventoModel = new Evento();
-			eventoModel.setCantidad(map.getCantidad());
-			eventoModel.setValorTotal(map.getValorTotal());
-			Servicio servicio = servicioRepository.findByIdServicio(map.getServicio());
-			eventoModel.setServicio(servicio);
-			enventos.add(eventoModel);
-		});
-		
-		return enventos;
+	private OrdenDTO crearOrden(OrdenDTO ordenDto) {
+		Orden orden = converToEntity(ordenDto);
+		orden = ordenRepository.save(orden);
+		return convertToDto(orden);
 	}
-
-	private void crearEventos(List<EventoDTO> eventos,Orden response) {
-		eventos.stream().forEach(temp->{
-			
-			Evento eventoModel = new Evento();
-			eventoModel.setCantidad(temp.getCantidad());
-			eventoModel.setValorTotal(temp.getValorTotal());
-			Servicio servicio = servicioRepository.findByIdServicio(temp.getServicio());
-			eventoModel.setServicio(servicio);
-			eventoModel.setOrden(response);
-			eventoRepositry.save(eventoModel);
-		});
-		
-	}
-
+	
 	private OrdenDTO convertToDto(Orden orden) {
-		ModelMapper modelMapper = new ModelMapper();
-		OrdenDTO ordendto = modelMapper.map(orden, OrdenDTO.class);
-		orden.getUsuario().getNumeroIdentificacion();
-		ordendto.setUsuario(orden.getUsuario().getNumeroIdentificacion());
-		
+		OrdenDTO ordendto = new OrdenDTO();
+		ordendto.setIdOrden(orden.getIdOrden());
+		ordendto.setCantidad(orden.getCantidad());
+		ordendto.setServicio(orden.getServicio().getIdServicio());
+		ordendto.setTotalOrden(orden.getTotalOrden());	
 		return ordendto;
 	}
-
-	private List<EventoDTO> convertEvento(List<Evento> evento) {
-		List<EventoDTO> lista= new ArrayList<EventoDTO>();
-		evento.stream().forEach(maper->{
-			
-			lista.add(new EventoDTO(maper.getIdEvento(),maper.getValorTotal(),maper.getCantidad(),maper.getServicio().getIdServicio()));
-		});
-		return lista;
+	private Orden converToEntity(OrdenDTO ordenDto) {
+		ModelMapper modelMapper = new ModelMapper();
+		Servicio servicio = this.servicio.getByIdServicioEntidad(ordenDto.getServicio());
+		ordenDto.setServicio(null);
+		Orden orden = modelMapper.map(ordenDto, Orden.class);
+		orden.setServicio(servicio);
+		return orden;
 	}
 
 	@Override
-	public List<OrdenDTO> getOrdenIdUsuario(int id) {
-		Usuario usuario = usuarioRepository.findByNumeroIdentificacion(id);
-		List<Orden> listaOrden = ordenRepository.findByUsuario(usuario);
-
-		return listaOrden.stream().map(this::convertToDto).collect(Collectors.toList());
+	public OrdenDTO OrdenByOrden(int eventoid) {
+		Orden orden = ordenRepository.findByIdOrden(eventoid);
+		return convertToDto(orden);
 	}
+	public Orden OrdenByIDOrden(OrdenDTO orden) {
+		
+		return  ordenRepository.findByIdOrden(orden.getIdOrden());
+	}
+	@Override
+	public List<Orden> listOrdenByOrden(List<OrdenDTO> orden) {
+		List<Orden> ordenes= orden.stream().map(this::OrdenByIDOrden).collect(Collectors.toList());
+		return ordenes;
+	}
+
+	@Override
+	public List<OrdenDTO> actualizarOrdenByEnvento(Evento evento) {
+		evento.getOrden().stream().forEach(o->{
+			o.setEvento(evento);
+			ordenRepository.save(o);
+		});
+		return null;
+	}
+
+	@Override
+	public void actualizarOrdenDto(EventoDTO eventoDto) {
+		Evento evento= eventoServis.getByEventoEntiy(eventoDto.getIdEvento());
+		evento.setOrden(listOrdenByOrden(eventoDto.getOrden()));
+		actualizarOrdenByEnvento(evento);
+	}
+
+	
+		
+	
 
 }
