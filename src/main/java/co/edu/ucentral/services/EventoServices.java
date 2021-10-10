@@ -3,13 +3,18 @@ package co.edu.ucentral.services;
 import java.util.List;
 
 import co.edu.ucentral.dto.EventoDTO;
+import co.edu.ucentral.entidades.Evento;
 
 public interface EventoServices {
 	
-	List<EventoDTO> eventos(int ordenDto);
-	List<EventoDTO> listadoEventos();
-	EventoDTO guardarEvento(EventoDTO evento);
-	EventoDTO actualizarEvento(EventoDTO evento);
+	List<EventoDTO> getAllEvents();
+	EventoDTO getByEvento(Integer eventoId);
+	Evento getByEventoEntiy(Integer eventoId);
+	EventoDTO guardarEvento(EventoDTO eventoDto);
+	List<EventoDTO> getAllEventsByIdUser(Integer idUsuario);
+	EventoDTO updateEvent(EventoDTO eventoDto);
+	void deleteEvent(Integer id);
+	
 	
 	
 

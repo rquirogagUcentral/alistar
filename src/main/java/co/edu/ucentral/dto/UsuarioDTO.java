@@ -7,6 +7,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import co.edu.ucentral.entidades.TiposDocumento;
@@ -126,7 +127,8 @@ public class UsuarioDTO {
 	}
 
 	public String getPassword() {
-		return password;
+		
+		return  password;
 	}
 
 	public void setPassword(String password) {

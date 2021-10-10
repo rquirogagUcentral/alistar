@@ -1,7 +1,6 @@
 package co.edu.ucentral.entidades;
 
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,7 +12,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 /**
  * The persistent class for the horario database table.
  * 
@@ -24,21 +22,24 @@ public class Horario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_horario")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_horario")
 	private Integer idHorario;
-
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
+	@Temporal(TemporalType.TIME)
+	@Column(name = "hora_inicio")
+	private Date horaInicio;
+	@Temporal(TemporalType.TIME)
+	@Column(name = "hora_fin")
+	private Date horaFin;
 
-	private Time hora;
-
-	
 	public Horario() {
+		
 	}
-
+	
 	public Integer getIdHorario() {
-		return this.idHorario;
+		return idHorario;
 	}
 
 	public void setIdHorario(Integer idHorario) {
@@ -46,21 +47,27 @@ public class Horario implements Serializable {
 	}
 
 	public Date getFecha() {
-		return this.fecha;
+		return fecha;
 	}
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 
-	public Time getHora() {
-		return this.hora;
+	public Date getHoraInicio() {
+		return horaInicio;
 	}
 
-	public void setHora(Time hora) {
-		this.hora = hora;
+	public void setHoraInicio(Date horaInicio) {
+		this.horaInicio = horaInicio;
 	}
 
-	
+	public Date getHoraFin() {
+		return horaFin;
+	}
+
+	public void setHoraFin(Date horaFin) {
+		this.horaFin = horaFin;
+	}
 
 }

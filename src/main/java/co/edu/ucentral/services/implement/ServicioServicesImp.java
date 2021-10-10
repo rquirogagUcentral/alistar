@@ -103,4 +103,9 @@ public class ServicioServicesImp implements ServicesServicio {
 		else
 			return true;
 	}
+
+	public Servicio getByIdServicioEntidad(Integer id) {
+		logger.info("Servicio  @id {}", id);
+		return serviceRepository.findByIdServicio(id);
+	}
 }
