@@ -30,21 +30,15 @@ public class OrdenCtrl {
 	
 	@GetMapping(path = "/getIdOrden",params  = "id")
 	private ResponseEntity<?> getByIdOrden(@RequestParam(required = true,value = "id") int id){
-		OrdenDTO ordenDto =ordenService.getOrden(id);
+		OrdenDTO ordenDto =ordenService.OrdenByOrden(id);
 		
 		return new ResponseEntity<>(ordenDto,HttpStatus.OK);
 	}
 	@GetMapping()
 	private ResponseEntity<?> getByIdOrden(){
-	   List<OrdenDTO> Listadoorden = ordenService.listadoOrden();
+	   List<OrdenDTO> Listadoorden = ordenService.listOrden();
 		
 		return new ResponseEntity<>(Listadoorden,HttpStatus.OK);
-	}
-	@GetMapping(path = "/getIdUsuario",params  = "id")
-	private ResponseEntity<?> getByIdUsuario(@RequestParam(required = true,value = "id") int id){
-		List<OrdenDTO> ordenDto =ordenService.getOrdenIdUsuario(id);
-		
-		return new ResponseEntity<>(ordenDto,HttpStatus.OK);
 	}
 	
 	@PostMapping(path = "/save-Orden")
@@ -52,7 +46,7 @@ public class OrdenCtrl {
 		if(bd.hasErrors()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, new MensajeFormat().formatoMensaje(bd));
 		}
-		OrdenDTO orden  =  ordenService.updateOrden(ordendto);
+		OrdenDTO orden  =  ordenService.createOrden(ordendto);
 		return new ResponseEntity<>(orden,HttpStatus.OK);
 	}
 }

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,6 +66,15 @@ public class UsuarioCtr {
 		}
 		return ResponseEntity.ok(listaUsuario);
 	}
+	
+	@GetMapping(value = "/getUserBy")
+	private ResponseEntity<?> getUsuarioById(@RequestParam(required = true, name = "id") Integer id) throws SQLException {
+
+		UsuarioDTO user = usuarioService.usuario(id);
+		
+		return ResponseEntity.ok(user);
+	}
+	
 
 	@PostMapping(value = "/getUsuario-password")
 	private ResponseEntity<?> getUsuarioAndPassword(@Valid @RequestBody UsuarioSesionDto usuarioDto, BindingResult bd) {
@@ -116,6 +126,11 @@ public class UsuarioCtr {
 
 		
 
+	}
+	@PutMapping(value = {"/actualizarUsuario","/updateUser"})
+	public ResponseEntity<?> updateUser(){
+		RespuestaGenerica generica = new RespuestaGenerica();
+		return ResponseEntity.status(304).body(generica);
 	}
 
 	@PostMapping(value = "/autenticacion")

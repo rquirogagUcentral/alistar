@@ -47,7 +47,7 @@ public class EstadoCtrl {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, new MensajeFormat().formatoMensaje(bd));
 		} else {
 			try {
-				EstadoDTO respose = (EstadoDTO) estadoService.crearServicio(estado);
+				EstadoDTO respose = estadoService.createEstate(estado);
 				return new ResponseEntity<>(respose, HttpStatus.CREATED);
 			} catch (Exception e) {
 				return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
