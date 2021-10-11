@@ -2,7 +2,6 @@ package co.edu.ucentral.entidades;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,6 +21,8 @@ public class Evento {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_evento")
 	private Integer idEvento;
+	@Column(name = "nombre_evento")
+	private String nombreEvento;
 	@OneToMany(fetch = FetchType.LAZY ,mappedBy = "evento")
 	private List<Orden> orden;
 	@Column(name = "valor_total")

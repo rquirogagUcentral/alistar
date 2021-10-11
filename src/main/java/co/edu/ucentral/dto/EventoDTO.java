@@ -13,6 +13,7 @@ import co.edu.ucentral.entidades.Usuario;
 public class EventoDTO {
 
 	private Integer idEvento;
+	private String nombreEvento;
 	private List<OrdenDTO> orden;
 	@NotNull
 	@Min(value = 1, message = "el valor no puede ser 0")
@@ -67,6 +68,14 @@ public class EventoDTO {
 
 	public void setEstado(EstadoDTO estado) {
 		this.estado = estado;
+	}
+
+	public String getNombreEvento() {
+		return nombreEvento;
+	}
+
+	public void setNombreEvento(String nombreEvento) {
+		this.nombreEvento = nombreEvento;
 	}
 
 }
