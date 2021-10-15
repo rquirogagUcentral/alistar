@@ -53,7 +53,6 @@ public class UtilJwt {
         claims.put("direccion",usuario.getDireccion());
         claims.put("fechaNacimiento",usuario.getFechaNacimiento() );
         claims.put("telefono",usuario.getTelefono() );
-        claims.put("imagenPerfil",usuario.getImagen() );
         return createToken(claims, userDetails.getUsername());
     }
 
