@@ -84,6 +84,14 @@ public class Evento {
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
+
+	public String getNombreEvento() {
+		return nombreEvento;
+	}
+
+	public void setNombreEvento(String nombreEvento) {
+		this.nombreEvento = nombreEvento;
+	}
 	
 
 }

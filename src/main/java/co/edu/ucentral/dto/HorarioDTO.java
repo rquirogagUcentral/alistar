@@ -1,5 +1,6 @@
 package co.edu.ucentral.dto;
 
+import java.sql.Time;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,16 +14,16 @@ public class HorarioDTO {
 	private Date fecha;
 	@Temporal(TemporalType.TIME)
 	@Column(name = "hora_inicio")
-	private Date horaInicio;
+	private Time horaInicio;
 	@Temporal(TemporalType.TIME)
 	@Column(name = "hora_fin")
-	private Date horaFin;
+	private Time horaFin;
 
 	public HorarioDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public HorarioDTO(Integer idHorario, Date fecha, Date horaInicio, Date horaFin) {
+	public HorarioDTO(Integer idHorario, Date fecha, Time horaInicio, Time horaFin) {
 		super();
 		this.idHorario = idHorario;
 		this.fecha = fecha;
@@ -46,19 +47,19 @@ public class HorarioDTO {
 		this.fecha = fecha;
 	}
 
-	public Date getHoraInicio() {
+	public Time getHoraInicio() {
 		return horaInicio;
 	}
 
-	public void setHoraInicio(Date horaInicio) {
+	public void setHoraInicio(Time horaInicio) {
 		this.horaInicio = horaInicio;
 	}
 
-	public Date getHoraFin() {
+	public Time getHoraFin() {
 		return horaFin;
 	}
 
-	public void setHoraFin(Date horaFin) {
+	public void setHoraFin(Time horaFin) {
 		this.horaFin = horaFin;
 	}
 

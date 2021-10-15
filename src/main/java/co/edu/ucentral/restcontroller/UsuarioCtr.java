@@ -128,9 +128,11 @@ public class UsuarioCtr {
 
 	}
 	@PutMapping(value = {"/actualizarUsuario","/updateUser"})
-	public ResponseEntity<?> updateUser(){
+	public ResponseEntity<?> updateUser(@Valid @RequestBody UsuarioDTO usuariodto, BindingResult bd){
 		RespuestaGenerica generica = new RespuestaGenerica();
-		return ResponseEntity.status(304).body(generica);
+		UsuarioDTO usuario = usuarioService.updateUsuario(usuariodto);
+		return ResponseEntity.status(HttpStatus.OK).body(usuario);
+		
 	}
 
 	@PostMapping(value = "/autenticacion")
