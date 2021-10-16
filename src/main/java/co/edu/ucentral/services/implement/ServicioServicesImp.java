@@ -68,7 +68,9 @@ public class ServicioServicesImp implements ServicesServicio {
 			map.setDireccion(map.getDireccion());
 			UsuarioDTO proveedor = new UsuarioDTO();
 			Usuario usuario = usuarioReposiory.findByNumeroIdentificacion(map.getProveedor());
+			usuario.setImagen(null);
 			BeanUtils.copyProperties(usuario, proveedor);
+			
 			ModelMapper modelMapper = new ModelMapper();
 			ServicioDTO dto = modelMapper.map(map, ServicioDTO.class);
 			dto.setProveedor(proveedor);
