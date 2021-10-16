@@ -105,10 +105,11 @@ public class ServicioCtrl {
 	@GetMapping(path = "get-usuario-service", params =  "usuarioId")
 	public  ResponseEntity<?> getUsuariSerbice(@RequestParam(required = true , name = "usuarioId") int usuarioId){
 		List<ServicioDTO> listadoServicio=serviceServicio.getByIdUsuario(usuarioId);
-		ResponseDto response = new ResponseDto();
+		RespuestaGenerica response= new  RespuestaGenerica();
 		if(listadoServicio.isEmpty()) {
-			//response.setMensaje("NO se encuentra el usuario");
-			return new ResponseEntity<>(response,HttpStatus.OK);
+			response.setCodigo(403);
+			response.setResponse("no se encuentran serciovios para este usuar");
+			return new ResponseEntity<>(response,HttpStatus.NO_CONTENT);
 		}else
 			return new ResponseEntity<>(listadoServicio,HttpStatus.OK);
 	}

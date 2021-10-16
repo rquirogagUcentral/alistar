@@ -33,7 +33,6 @@ public class TestEvento {
 		
 		EventoDTO eventoDto = new EventoDTO();
 		eventoDto.setEstado(new EstadoDTO(1, "Actualizado"));
-		eventoDto.setHorario(new HorarioDTO(1,new Date(),new Date(),new Date()));
 		eventoDto.setUsuario(827982587);
 		OrdenDTO ordenDto = new OrdenDTO(1,1,1,80000);
 		List<OrdenDTO> listOrden= new ArrayList<>(); 
