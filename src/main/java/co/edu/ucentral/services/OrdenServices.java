@@ -17,4 +17,5 @@ public interface OrdenServices {
 	List<OrdenDTO> createOrdenList(List<OrdenDTO> orden);
 	List<OrdenDTO> actualizarOrdenByEnvento(Evento evento);
 	void actualizarOrdenDto(EventoDTO eventoDto);
+	void eliminarOrden(List<Orden> listadoOrdenes);
 }

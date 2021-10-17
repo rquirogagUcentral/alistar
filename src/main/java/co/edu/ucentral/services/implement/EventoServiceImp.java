@@ -106,6 +106,8 @@ public class EventoServiceImp implements EventoServices {
 
 	@Override
 	public void deleteEvent(Integer id) {
+		Evento eventos=  eventoRepo.findByIdEvento(id);
+		orden.eliminarOrden(eventos.getOrden());
 		eventoRepo.deleteById(id);
 	}
 
