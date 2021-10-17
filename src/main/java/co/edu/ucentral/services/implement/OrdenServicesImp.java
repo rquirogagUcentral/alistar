@@ -113,6 +113,13 @@ public class OrdenServicesImp implements OrdenServices {
 		actualizarOrdenByEnvento(evento);
 	}
 
+	@Override
+	public void eliminarOrden(List<Orden> listadoOrdenes) {
+		listadoOrdenes.stream().forEach(ordenId->{
+			ordenRepository.delete(ordenId);
+		});
+	}
+
 	
 		
 	
