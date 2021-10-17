@@ -70,7 +70,11 @@ public class EventoServiceImp implements EventoServices {
 	@Override
 	public EventoDTO getByEvento(Integer eventoId) {
 		Evento evento = eventoRepo.findByIdEvento(eventoId);
-		return convertToDTO(evento);
+		if(evento== null) {
+			return null;
+		}else
+			return convertToDTO(evento);
+		
 	}
 
 	@Override
@@ -102,6 +106,8 @@ public class EventoServiceImp implements EventoServices {
 
 	@Override
 	public void deleteEvent(Integer id) {
+		Evento eventos=  eventoRepo.findByIdEvento(id);
+		orden.eliminarOrden(eventos.getOrden());
 		eventoRepo.deleteById(id);
 	}
 

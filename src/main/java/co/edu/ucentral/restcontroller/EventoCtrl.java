@@ -39,6 +39,12 @@ public class EventoCtrl {
 		List<EventoDTO>  eventoDto = evento.getAllEventsByIdUser(usuarioId);
 		return new ResponseEntity<>(eventoDto, HttpStatus.OK);
 	}
+	
+	@GetMapping(path = "getEventoById", params = "id")
+	public ResponseEntity<?> getByIdEvento(@RequestParam(required = true, value = "id") Integer id) {
+		EventoDTO eventoDto =  evento.getByEvento(id);
+		return new ResponseEntity<>(eventoDto,HttpStatus.OK);
+	}
 	@PostMapping(value = "/save-evento")
 	public ResponseEntity<?> postEvento(@Valid @RequestBody EventoDTO eventoDto) {
 		eventoDto = evento.guardarEvento(eventoDto);
