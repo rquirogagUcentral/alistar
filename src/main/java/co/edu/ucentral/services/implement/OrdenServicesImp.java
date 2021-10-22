@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import co.edu.ucentral.dto.EventoDTO;
 import co.edu.ucentral.dto.OrdenDTO;
-import co.edu.ucentral.dto.ServicioDTO;
 import co.edu.ucentral.entidades.Evento;
 import co.edu.ucentral.entidades.Orden;
 import co.edu.ucentral.entidades.Servicio;
@@ -88,7 +87,6 @@ public class OrdenServicesImp implements OrdenServices {
 		return convertToDto(orden);
 	}
 	public Orden OrdenByIDOrden(OrdenDTO orden) {
-		
 		return  ordenRepository.findByIdOrden(orden.getIdOrden());
 	}
 	@Override
@@ -109,13 +107,14 @@ public class OrdenServicesImp implements OrdenServices {
 	@Override
 	public void actualizarOrdenDto(EventoDTO eventoDto) {
 		Evento evento= eventoServis.getByEventoEntiy(eventoDto.getIdEvento());
-		evento.setOrden(listOrdenByOrden(eventoDto.getOrden()));
-		actualizarOrdenByEnvento(evento);
+		eliminarOrden(evento.getOrden());
+		
 	}
 
 	@Override
 	public void eliminarOrden(List<Orden> listadoOrdenes) {
 		listadoOrdenes.stream().forEach(ordenId->{
+			logger.info("@@@ deleteById() >>> {} ",ordenId.getIdOrden());
 			ordenRepository.delete(ordenId);
 		});
 	}

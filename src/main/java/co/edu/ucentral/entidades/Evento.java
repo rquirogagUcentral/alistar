@@ -1,7 +1,10 @@
 package co.edu.ucentral.entidades;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,27 +18,47 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Eventos")
-public class Evento {
+public class Evento implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1044411635563229957L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_evento")
 	private Integer idEvento;
 	@Column(name = "nombre_evento")
 	private String nombreEvento;
-	@OneToMany(fetch = FetchType.LAZY ,mappedBy = "evento")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "evento")
 	private List<Orden> orden;
 	@Column(name = "valor_total")
 	private double valorTotal;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idHorario" , referencedColumnName = "id_horario")
+	@JoinColumn(name = "idHorario", referencedColumnName = "id_horario")
 	private Horario horario;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "usuario")
 	private Usuario usuario;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idEstado", referencedColumnName ="id_estado")
+	@JoinColumn(name = "idEstado", referencedColumnName = "id_estado")
 	private Estado estado;
+
+	public Evento() {
+		orden = new ArrayList<Orden>();
+	}
+	
+
+	public Evento(Integer idEvento, String nombreEvento, List<Orden> orden, double valorTotal, Horario horario,
+			Usuario usuario, Estado estado) {
+		this.idEvento = idEvento;
+		this.nombreEvento = nombreEvento;
+		this.orden = orden;
+		this.valorTotal = valorTotal;
+		this.horario = horario;
+		this.usuario = usuario;
+		this.estado = estado;
+	}
 
 	public Integer getIdEvento() {
 		return idEvento;
@@ -92,6 +115,5 @@ public class Evento {
 	public void setNombreEvento(String nombreEvento) {
 		this.nombreEvento = nombreEvento;
 	}
-	
 
 }

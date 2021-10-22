@@ -22,7 +22,6 @@ import co.edu.ucentral.repository.IEventoRepository;
 import co.edu.ucentral.services.EstadoService;
 import co.edu.ucentral.services.EventoServices;
 import co.edu.ucentral.services.OrdenServices;
-import co.edu.ucentral.services.ServicesServicio;
 import co.edu.ucentral.services.UsuarioService;
 
 @Service
@@ -89,9 +88,12 @@ public class EventoServiceImp implements EventoServices {
 
 	@Override
 	public EventoDTO updateEvent(EventoDTO eventoDto) {
+		orden.actualizarOrdenDto(eventoDto);
 		EstadoDTO estadoDto = estado.update(eventoDto.getEstado());
 		eventoDto.setEstado(estadoDto);
 		Evento evento = convertToEntiti(eventoDto);
+		List<Orden> ordenes = orden.listOrdenByOrden(eventoDto.getOrden());
+		evento.setOrden(ordenes);
 		Horario horario = ItfhorarioRepo.findByIdHorario(eventoDto.getHorario().getIdHorario());
 		if(horario !=null) {
 			ItfhorarioRepo.save(horario);
@@ -99,8 +101,8 @@ public class EventoServiceImp implements EventoServices {
 		evento.setHorario(horario);
 		Usuario usuario = this.usuario.usuarioById(eventoDto.getUsuario());
 		evento.setUsuario(usuario);
+		logger.info("@@@ getAllEvents() >>> {} ", eventoDto.getOrden());
 		evento = eventoRepo.save(evento);
-		orden.actualizarOrdenDto(eventoDto);
 		return convertToDTO(evento);
 	}
 
@@ -128,6 +130,7 @@ public class EventoServiceImp implements EventoServices {
 	}
 
 	private Evento convertToEntiti(EventoDTO eventodto) {
+
 		ModelMapper modelMapper = new ModelMapper();
 		Evento evento = modelMapper.map(eventodto, Evento.class);
 		
